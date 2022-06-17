@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Data Dashboard">
+    <meta name="author" content="Aboze Brain">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Data Dashboard</title>
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <!-- Load d3.js v5 -->
+  </head>
+  <body>
+    <!-- Div to manipulate -->
+    <div id="d3"></div>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+      const DataUrl = "{{ url_for('get_data') }}";
+  </script>
+  <script src="{{ url_for('static', filename='js/main_graph.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  </body>
+</html>
