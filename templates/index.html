@@ -6,18 +6,45 @@
     <meta name="author" content="Aboze Brain">
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Data Dashboard</title>
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <!-- Load d3.js v5 -->
   </head>
   <body>
+  <div id="right-bar"></div>
+
+  <div id = graph-container>
+    <div id = "header-container">
+                  <div id="text-display">
+                  </div>
+
+                  <div id="space"></div>
+                  <div id="model-display">
+                    <div id = "bars" >
+                    </div>
+                    <div id = "fleche" >
+                    </div>
+                  </div>
+              </tr>
+    </div>
     <!-- Div to manipulate -->
     <div id="d3"></div>
-
+</div>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script>
       const DataUrl = "{{ url_for('get_data') }}";
   </script>
+  <script src="{{ url_for('static', filename='js/select.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/percentage_bar.js') }}"></script>
   <script src="{{ url_for('static', filename='js/main_graph.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/text_percentage.js') }}"></script> 
   <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  <script>     
+  var url = 'static/images/fleche.png';
+ 
+  var image = new Image();
+  image.src = url;
+  document.getElementById('fleche').appendChild(image)    </script>
+
+
   </body>
 </html>

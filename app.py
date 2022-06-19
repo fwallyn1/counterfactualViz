@@ -12,7 +12,7 @@ def index():
 
 @app.route('/get_data')
 def get_data():
-    with open('data.json', 'r') as f:
+    with open('data_transpose.json', 'r') as f:
         fileData = json.load(f)
     return fileData
     

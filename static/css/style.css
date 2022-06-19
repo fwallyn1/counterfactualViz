@@ -1,1 +1,44 @@
-#d3 svg { background-color: Gainsboro; }
+#d3 svg { background-color: Gainsboro; 
+    width: 1000px;  /* Or whatever */
+    height: 800px; /* Or whatever */
+    margin: auto;
+}
+
+body
+{display : flex;
+flex-wrap: wrap;
+}
+#graph-container
+{
+    display:flex;
+    flex-direction:column ;
+}
+
+#header-container
+{
+    display:flex;
+    width : 80%;
+    height:300px;
+    margin : auto;
+    align-content: center;
+}
+#right-bar
+{
+    width: 100px;  /* Or whatever */
+    height: 100%; /* Or whatever */
+    margin: auto;  /* Magic! */
+}
+
+#model-display
+{
+    display:flex;
+}
+#bars
+{
+    width:260px;
+}
+#fleche img
+{
+    width: 100px;
+    height: 100px;
+}
