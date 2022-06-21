@@ -1,15 +1,40 @@
-#d3 svg { background-color: Gainsboro; 
-    width: 1000px;  /* Or whatever */
-    height: 800px; /* Or whatever */
+header 
+{
+    grid-column: 1 / -1;
+    grid-row : 1/-1;
+    width:100%;
+    text-align: center;
+    background-color: darkgray;
+}
+#titre-principal
+{   
+    width:auto;
+    text-align: center;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, 100%);
+    align-items: center;
+    justify-items: center;
+  }
+
+
+#d3 svg { /*background-color: rgba(94, 92, 92, 0.411); */
     margin: auto;
 }
 
 body
 {display : flex;
 flex-wrap: wrap;
+background-color: rgba(207,208,210,.2);
 }
 #graph-container
-{
+{   
+    grid-column: 2;
+    grid-row: 2;
     display:flex;
     flex-direction:column ;
 }
@@ -23,10 +48,16 @@ flex-wrap: wrap;
     align-content: center;
 }
 #right-bar
-{
-    width: 100px;  /* Or whatever */
+{   
+    grid-column: 1;
+    grid-row: 2;
+    width: 200px;  /* Or whatever */
     height: 100%; /* Or whatever */
     margin: auto;  /* Magic! */
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    text-justify: center;
 }
 
 #model-display

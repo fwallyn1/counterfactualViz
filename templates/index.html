@@ -9,8 +9,14 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <!-- Load d3.js v5 -->
   </head>
+<div class = "wrapper">
+  <header>
+  <h1 id="titre-principal"> Visualisation des contrefactuels</h1>
+  </header>
+
   <body>
-  <div id="right-bar"></div>
+  <div id="right-bar">
+  </div>
 
   <div id = graph-container>
     <div id = "header-container">
@@ -28,7 +34,9 @@
     </div>
     <!-- Div to manipulate -->
     <div id="d3"></div>
+  </div>
 </div>
+
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script>
       const DataUrl = "{{ url_for('get_data') }}";
