@@ -1,3 +1,17 @@
-# Interactive-charts-for-frontend-data-visualization-using-flask-and-D3js
+# Counterfactual visualization 
 
-![Demo](static/Demo.gif)
+Start
+
+```
+pip install -r requirements.txt
+```
+
+Run server 
+
+```
+python app.py
+```
+
+To change example datasets : 
+
+input :  data_adult or data_churn in DATASET_PATH constant in $app.py$
