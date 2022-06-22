@@ -2,7 +2,9 @@
 // Setting the default group
 //const group = "All";
 
-
+function roundToTwo(num) {
+    return +(Math.round(num + "e+2")  + "e-2");
+}
 
 //draw main graph
 
@@ -17,8 +19,8 @@ function d3Chart(data,id_indiv,data_info){
     graph_misc = {ylabel:4, xlabelH :4, title:9},
     final_rect_width = (width - inner_margin.left - inner_margin.right)/data.col.length
 
-    var good_col = "#1b9e77",
-        bad_col = "#d95f02";
+    var good_col = "rgb(0, 30, 73)",
+        bad_col = "rgb(0, 30, 73)";
 
     var col = data.col
     // construct svg
@@ -169,7 +171,7 @@ function d3Chart(data,id_indiv,data_info){
                 contour.append("text")
             .attr("x",(x(col_name)+(width/data.col.length)/2))
             .attr("y", y(transf_x))
-            .text(`${x_val}`)
+            .text(`${roundToTwo(x_val)}`)
             .attr("text-anchor","middle")
             .style("font-weight","bold");
             }
@@ -177,14 +179,14 @@ function d3Chart(data,id_indiv,data_info){
                 contour.append("text")
             .attr("x",(x(col_name)+(width/data.col.length)/2))
             .attr("y", x_val>cf_val ? y(transf_x)-10 :  y(transf_x)+10)
-            .text(`${x_val}`)
+            .text(`${roundToTwo(x_val)}`)
             .attr("text-anchor","middle")
             .style("font-weight","bold");
 
             contour.append("text")
             .attr("x",(x(col_name)+(width/data.col.length)/2))
             .attr("y", x_val>cf_val ? y(transf_cf)+10 :  y(transf_cf)-10)
-            .text(`${cf_val}`)
+            .text(`${roundToTwo(cf_val)}`)
             .attr("text-anchor","middle")
             .style("font-weight","bold");
             
@@ -213,12 +215,12 @@ function d3Chart(data,id_indiv,data_info){
             .attr("marker-end", "url(#triangle)");
             */
            
-            const custom_arrow =   {p1 :[(x(col_name)+(width/data.col.length)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-20],
+            const custom_arrow =   {p1 :[(x(col_name)+(width/data.col.length)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-10],
                                     p2 : [(x(col_name)+(width/data.col.length)/2)-10,x_val>cf_val ? y(transf_cf)-20 : y(transf_cf)+10],
                                     p3 : [(x(col_name)+(width/data.col.length)/2),x_val>cf_val ? y(transf_cf)-10 : y(transf_cf)],
                                     p4 : [(x(col_name)+(width/data.col.length)/2)+10,x_val>cf_val ? y(transf_cf)-20 : y(transf_cf)+10],
-                                    p5 : [(x(col_name)+(width/data.col.length)/2)+10,x_val>cf_val ? y(transf_x) : y(transf_x)-20],
-                                    p6 : [(x(col_name)+(width/data.col.length)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-20]
+                                    p5 : [(x(col_name)+(width/data.col.length)/2)+10,x_val>cf_val ? y(transf_x) : y(transf_x)-10],
+                                    p6 : [(x(col_name)+(width/data.col.length)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-10]
             };
             contour.append("path")
             .attr('d', d3.line()([custom_arrow.p1,custom_arrow.p2,custom_arrow.p3,custom_arrow.p4,custom_arrow.p5,custom_arrow.p6]))

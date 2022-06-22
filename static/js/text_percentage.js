@@ -1,7 +1,7 @@
 function draw_text_percent(proba_x,proba_c){
-    data = [`Le modèle prédit une probabilité de rester client de ${Math.round(proba_x*100)}% sur les données réélles.`,
-    `Le modèle prédit une probabilité de rester client de ${Math.round(proba_c*100)}% sur les données contrafactuelles.`]
-var text_pct = d3.select("#text-display")
+    data = [`The model predicts a probability of ${Math.round(proba_x*100)}% for the positive class on real data.`,
+    `The model predicts a probability of ${Math.round(proba_c*100)}% for the positive class on counterfactual data.`]
+d3.select("#text-display")
         .selectAll("p")
         .data(data)
         .enter()

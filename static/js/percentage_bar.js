@@ -13,6 +13,8 @@ function draw_percent_bar(result) {
 
     var good_col = "#1b9e77",
         bad_col = "#d95f02";
+        /*var good_col = "rgb(21,96,122)",
+        bad_col = "rgb(166,55,22)";*/
 
     var svg = d3.select("#model-display #bars").append("svg")
                 .attr("width",270)

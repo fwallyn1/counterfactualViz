@@ -3,6 +3,7 @@
 function onchange(dataset,data_info) {
     d3.selectAll("svg").remove();
     d3.selectAll("#text-display p").remove()
+    d3.selectAll("#text-description .description-title,ul").remove()
     selectValue = d3.select('select').property('value');
     selectValue = Number(selectValue);
     /*d3.select('body')
@@ -14,6 +15,7 @@ function onchange(dataset,data_info) {
     draw_percent_bar(proba_x);
     draw_percent_bar(proba_c);
     draw_text_percent(proba_x,proba_c);
+    text_description(dataset,selectValue)
 };
 
 function makeSelect(dataset,data_info){

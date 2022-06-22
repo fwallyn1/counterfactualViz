@@ -11,11 +11,12 @@
   </head>
 <div class = "wrapper">
   <header>
-  <h1 id="titre-principal"> Visualisation des contrefactuels</h1>
+  <h1 id="titre-principal"> Indivudual's counterfactual visualization</h1>
   </header>
 
   <body>
   <div id="right-bar">
+    <p id="choice-id">Choose the individual to visualize</p>
   </div>
 
   <div id = graph-container>
@@ -29,12 +30,13 @@
                     </div>
                     <div id = "fleche" >
                     </div>
-                  </div>
-              </tr>
+                  </div>        
     </div>
     <!-- Div to manipulate -->
     <div id="d3"></div>
+    <div id="text-description"></div>
   </div>
+
 </div>
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -45,6 +47,7 @@
   <script src="{{ url_for('static', filename='js/percentage_bar.js') }}"></script>
   <script src="{{ url_for('static', filename='js/main_graph.js') }}"></script>
   <script src="{{ url_for('static', filename='js/text_percentage.js') }}"></script> 
+  <script src="{{ url_for('static', filename='js/text_description.js') }}"></script> 
   <script src="{{ url_for('static', filename='js/index.js') }}"></script>
   <script>     
   var url = 'static/images/fleche.png';
