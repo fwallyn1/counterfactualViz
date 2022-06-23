@@ -55,25 +55,27 @@ function d3Chart(data,id_indiv,data_info){
     var len_max = d3.max(data.col.map(d => d.length) );
     const margin = {top: 0, right: 0, bottom: 0, left: 0},
     inner_margin = {top: 20, right: 10, bottom: 14*len_max*(0.7), left: 10},
+    //base rectangle width
     rect_width = 100,
+    // width & height of svg in function of feature name length
     width = data.col.length * rect_width + inner_margin.left + inner_margin.right + 14*len_max*0.7,
     height = 500 - margin.top - margin.bottom + 14*len_max*(0.7),
-    barPadding = 7,
-    graph_misc = {ylabel:4, xlabelH :4, title:9},
+    //barPadding = 7,
+    //graph_misc = {ylabel:4, xlabelH :4, title:9},
+
+    //final rect width to fit svg width
     final_rect_width = (width - inner_margin.left - inner_margin.right)/data.col.length
 
+    //colors used for arrows
     var good_col = "#1b9e77",
         bad_col = "#d95f02";
-
+    // array of feature names
     var col = data.col
     // construct svg
     var svg = d3.select('#d3')
     .append("svg")
     .attr("width", width)
     .attr("height", height)
-    //.style('background-color', 'lightgrey');
-    //légende
-    
 
     //axe des variables
     var xAxis = svg.append("g");
@@ -130,7 +132,7 @@ function d3Chart(data,id_indiv,data_info){
         
         // si type string
         if (typeof(x_val) === "string"){
-            
+            // split long string to make new line
             x_val = slice_text(x_val);
             cf_val = slice_text(cf_val);
             // si pas de changement avec le contrefactuel
