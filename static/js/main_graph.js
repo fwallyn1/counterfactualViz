@@ -6,6 +6,49 @@ function roundToTwo(num) {
     return +(Math.round(num + "e+2")  + "e-2");
 }
 
+function slice_text(string){
+    var finalSliceString = [];
+    if (string.length >=20){
+        if(string.includes(" ")){
+            sliceString = string.split(' ')
+            var sep = " "
+            }
+        else if (string.includes("_")){
+            sliceString = string.split('_')
+            var sep = "_"
+            }
+        else if (string.includes("-")){
+                sliceString = string.split('-')
+                var sep = "-"
+                }
+         else{
+            var nbChar = Math.floor(string.length/2)
+            sliceString = [string.slice(nbChar),string.slice(-(string.length-nbChar))]
+         }
+        var n = sliceString.length
+        var nb_char_temp = sliceString[0].length
+        var char_temp = sliceString[0]
+        for(let i = 1; i < n; i++){
+            let len_str = sliceString[i].length
+            if(nb_char_temp+len_str+1<20){
+                char_temp = char_temp.concat(sep,sliceString[i]);
+                nb_char_temp += len_str;
+            }
+            else{
+                finalSliceString.push(char_temp);
+                char_temp = sliceString[i];
+                nb_char_temp = 0;
+            }
+        }
+        finalSliceString.push(char_temp)
+        }
+    else{
+        finalSliceString.push(string)
+    }
+    
+    return(finalSliceString)
+    }
+
 //draw main graph
 
 function d3Chart(data,id_indiv,data_info){
@@ -19,8 +62,8 @@ function d3Chart(data,id_indiv,data_info){
     graph_misc = {ylabel:4, xlabelH :4, title:9},
     final_rect_width = (width - inner_margin.left - inner_margin.right)/data.col.length
 
-    var good_col = "rgb(0, 30, 73)",
-        bad_col = "rgb(0, 30, 73)";
+    var good_col = "#1b9e77",
+        bad_col = "#d95f02";
 
     var col = data.col
     // construct svg
@@ -54,12 +97,9 @@ function d3Chart(data,id_indiv,data_info){
       .attr("dx", "-.5em")
       .attr("dy", ".15em")
       .attr("transform", "translate(20,0)rotate(-45)")
-      //.attr("transform","translate(20,0)")
       .style("font-weight","bold")
         .style("font-size", "12px");
 
-    //.attr("transform","translate(0,10)")
-    //.attr("transform", "rotate(-65)");
     
     // contour du graphe
     contour = svg.append("g")
@@ -91,66 +131,61 @@ function d3Chart(data,id_indiv,data_info){
         // si type string
         if (typeof(x_val) === "string"){
             
+            x_val = slice_text(x_val);
+            cf_val = slice_text(cf_val);
             // si pas de changement avec le contrefactuel
             if (x_val===cf_val){
                 //on ajoute le texte
                 contour.append("text")
-            .attr("x",(x(col_name)+(width/data.col.length)/2))
-            .attr("y",y(1/2)) // au milieu
-            .text(`${x_val}`)
-            .attr("text-anchor","middle")
-            .style("font-weight","bold")
-            .style("font-size", "12px");
-            }
+                .attr("x",(x(col_name)+(width/data.col.length)/2))
+                .attr("y",y(1/2)) // au milieu
+                .attr("text-anchor","middle")
+                .style("font-weight","bold")
+                .style("font-size", "12px")
+                .selectAll('tspan').data(x_val)
+                .enter().append('tspan')
+                .text(function(d) {
+                return d;
+                })
+                .attr('dy', '0').attr('x', (x(col_name)+(width/data.col.length)/2));
+                            }
             // si changement 
             else{
                 // texte de l'exemple
                 contour.append("text")
-            .attr("x",(x(col_name)+(width/data.col.length)/2))
-            .attr("y",y(0.25)) // en bas du graphe
-            .text(`${x_val}`)
-            .attr("text-anchor","middle")
-            .style("font-weight","bold")
-            .style("font-size", "12px");
+                .attr("x",(x(col_name)+(width/data.col.length)/2))
+                .attr("y",y(0.25)) // en bas du graphe
+                .attr("text-anchor","middle")
+                .style("font-weight","bold")
+                .style("font-size", "12px")
+                .selectAll('tspan').data(x_val)
+                .enter().append('tspan')
+                .text(function(d) {
+                return d;
+                })
+                .attr('dy', '0.8em').attr('x', (x(col_name)+(width/data.col.length)/2));
 
-            // texte du contrefactuel
-            contour.append("text")
-            .attr("x",(x(col_name)+(width/data.col.length)/2))
-            .attr("y",y(0.75))// en haut du graphe
-            .text(`${cf_val}`)
-            .attr("text-anchor","middle")
-            .style("font-weight","bold")
-            .style("font-size", "12px");
-            /*
-            //fleche
-            //triangle
-            contour.append("svg:defs").append("svg:marker")
-                .attr("id", "triangle")
-                .attr("refX", 6)
-                .attr("refY", 6)
-                .attr("markerWidth", 30)
-                .attr("markerHeight", 30)
-                .attr("orient", "auto")
-                .append("path")
-                .attr("d", "M 0 0 12 6 0 12 3 6")
-                .style("fill", "black");
-
-            //line              
-            contour.append("line")
-            .attr("x1", (x(col_name)+(width/data.col.length)/2))
-            .attr("y1", y(0.25)-10)
-            .attr("x2", (x(col_name)+(width/data.col.length)/2))
-            .attr("y2", y(0.75)+10)          
-            .attr("stroke-width", 1)
-            .attr("stroke", "black")
-            .attr("marker-end", "url(#triangle)");
-            */
-            const custom_arrow =   {p1 :[(x(col_name)+(width/data.col.length)/2)-10,y(0.25)-20],
-            p2 : [(x(col_name)+(width/data.col.length)/2)-10,y(0.75)+20],
-            p3 : [(x(col_name)+(width/data.col.length)/2),y(0.75)+10],
-            p4 : [(x(col_name)+(width/data.col.length)/2)+10,y(0.75)+20],
-            p5 : [(x(col_name)+(width/data.col.length)/2)+10,y(0.25)-20],
-            p6 : [(x(col_name)+(width/data.col.length)/2)-10, y(0.25)-20]
+                // texte du contrefactuel
+                contour.append("text")
+                .attr("x",(x(col_name)+(width/data.col.length)/2))
+                .attr("y",y(0.75))// en haut du graphe
+                .attr("text-anchor","middle")
+                .style("font-weight","bold")
+                .style("font-size", "12px")
+                .selectAll('tspan').data(cf_val.reverse())
+                .enter().append('tspan')
+                .text(function(d) {
+                return d;
+                })
+                .attr('dy', '-0.8em').attr('x', x(col_name)+(width/data.col.length)/2)
+                var nLinesCf = x_val.length
+                console.log(nLinesCf)
+                const custom_arrow =   {p1 :[(x(col_name)+(width/data.col.length)/2)-10,y(0.25)-10],
+                                        p2 : [(x(col_name)+(width/data.col.length)/2)-10,y(0.75)+10],
+                                        p3 : [(x(col_name)+(width/data.col.length)/2),y(0.75)],
+                                        p4 : [(x(col_name)+(width/data.col.length)/2)+10,y(0.75)+10],
+                                        p5 : [(x(col_name)+(width/data.col.length)/2)+10,y(0.25)-10],
+                                        p6 : [(x(col_name)+(width/data.col.length)/2)-10, y(0.25)-10]
         };
         contour.append("path")
         .attr('d', d3.line()([custom_arrow.p1,custom_arrow.p2,custom_arrow.p3,custom_arrow.p4,custom_arrow.p5,custom_arrow.p6]))
@@ -189,32 +224,7 @@ function d3Chart(data,id_indiv,data_info){
             .text(`${roundToTwo(cf_val)}`)
             .attr("text-anchor","middle")
             .style("font-weight","bold");
-            
-            /*
-            //fleche
-            //triangle
-            contour.append("svg:defs").append("svg:marker")
-                .attr("id", "triangle")
-                .attr("refX", 6)
-                .attr("refY", 6)
-                .attr("markerWidth", 30)
-                .attr("markerHeight", 30)
-                .attr("orient", "auto")
-                .append("path")
-                .attr("d", "M 0 0 12 6 0 12 3 6")
-                .style("fill", "black");
-
-            //line              
-            contour.append("line")
-            .attr("x1",(x(col_name)+(width/data.col.length)/2))
-            .attr("y1", x_val>cf_val ? y(transf_x) : y(transf_x)-20)
-            .attr("x2", (x(col_name)+(width/data.col.length)/2))
-            .attr("y2", x_val>cf_val ? y(transf_cf)-20 : y(transf_cf)+20)          
-            .attr("stroke-width", 1)
-            .attr("stroke", "black")
-            .attr("marker-end", "url(#triangle)");
-            */
-           
+                       
             const custom_arrow =   {p1 :[(x(col_name)+(width/data.col.length)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-10],
                                     p2 : [(x(col_name)+(width/data.col.length)/2)-10,x_val>cf_val ? y(transf_cf)-20 : y(transf_cf)+10],
                                     p3 : [(x(col_name)+(width/data.col.length)/2),x_val>cf_val ? y(transf_cf)-10 : y(transf_cf)],

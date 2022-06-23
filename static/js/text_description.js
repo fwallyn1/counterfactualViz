@@ -29,11 +29,14 @@ function text_description(data,id_indiv){
     var list = d3.select("#text-description")
     .append("ul")
     for (let id_col of d3.range(0,data.col.length)){
-        var col_name = data.col[id_col],
         x_val = data.X[id_col][id_indiv],
         cf_val = data.cf[id_col][id_indiv];
-        //d3.select("#text-description")
-        list.append("li")
-        .text(`Feature ${col_name} has to change from ${x_val} to ${cf_val}`)
-    }
-}
+        if (x_val !==cf_val){
+            var col_name = data.col[id_col];
+            //d3.select("#text-description")
+            list.append("li")
+            .text(`Feature ${col_name} has to change from ${x_val} to ${cf_val}`)
+        };
+        
+    };
+};

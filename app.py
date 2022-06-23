@@ -4,7 +4,7 @@ import numpy as np
 import json
 app = Flask(__name__)
 
-DATASET_PATH = 'data_adult.json'
+DATASET_PATH = 'data_churn.json'
 @app.route('/')
 def index():
     return render_template('index.html')
