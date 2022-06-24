@@ -8,7 +8,7 @@ function roundToTwo(num) {
 
 function slice_text(string){
     var finalSliceString = [];
-    if (string.length >=20){
+    if (string.length >=15){
         if(string.includes(" ")){
             sliceString = string.split(' ')
             var sep = " "
@@ -30,7 +30,7 @@ function slice_text(string){
         var char_temp = sliceString[0]
         for(let i = 1; i < n; i++){
             let len_str = sliceString[i].length
-            if(nb_char_temp+len_str+1<20){
+            if(nb_char_temp+len_str+1<=15){
                 char_temp = char_temp.concat(sep,sliceString[i]);
                 nb_char_temp += len_str;
             }
@@ -67,8 +67,8 @@ function d3Chart(data,id_indiv,data_info){
     final_rect_width = (width - inner_margin.left - inner_margin.right)/data.col.length
 
     //colors used for arrows
-    var good_col = "#1b9e77",
-        bad_col = "#d95f02";
+    var good_col = "#d95f02",
+        bad_col = "#1b9e77";
     // array of feature names
     var col = data.col
     // construct svg
@@ -133,33 +133,36 @@ function d3Chart(data,id_indiv,data_info){
         // si type string
         if (typeof(x_val) === "string"){
             // split long string to make new line
-            x_val = slice_text(x_val);
-            cf_val = slice_text(cf_val);
+            console.log(x_val===cf_val)
             // si pas de changement avec le contrefactuel
             if (x_val===cf_val){
+                x_val = slice_text(x_val);
+                cf_val = slice_text(cf_val);
                 //on ajoute le texte
                 contour.append("text")
                 .attr("x",(x(col_name)+(width/data.col.length)/2))
                 .attr("y",y(1/2)) // au milieu
                 .attr("text-anchor","middle")
                 .style("font-weight","bold")
-                .style("font-size", "12px")
+                .style("font-size", "14px")
                 .selectAll('tspan').data(x_val)
                 .enter().append('tspan')
                 .text(function(d) {
                 return d;
                 })
-                .attr('dy', '0').attr('x', (x(col_name)+(width/data.col.length)/2));
+                .attr('dy', '0.8em').attr('x', (x(col_name)+(width/data.col.length)/2));
                             }
             // si changement 
             else{
+                x_val = slice_text(x_val);
+                cf_val = slice_text(cf_val);
                 // texte de l'exemple
                 contour.append("text")
                 .attr("x",(x(col_name)+(width/data.col.length)/2))
                 .attr("y",y(0.25)) // en bas du graphe
                 .attr("text-anchor","middle")
                 .style("font-weight","bold")
-                .style("font-size", "12px")
+                .style("font-size", "14px")
                 .selectAll('tspan').data(x_val)
                 .enter().append('tspan')
                 .text(function(d) {
@@ -173,7 +176,7 @@ function d3Chart(data,id_indiv,data_info){
                 .attr("y",y(0.75))// en haut du graphe
                 .attr("text-anchor","middle")
                 .style("font-weight","bold")
-                .style("font-size", "12px")
+                .style("font-size", "14px")
                 .selectAll('tspan').data(cf_val.reverse())
                 .enter().append('tspan')
                 .text(function(d) {
