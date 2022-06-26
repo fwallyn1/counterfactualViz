@@ -16,7 +16,6 @@ def get_data():
     with open(DATASET_PATH, 'r') as f:
         fileData = json.load(f)
     return fileData
-    
 if __name__ == '__main__':
-    app.run(debug=True,port=3000)
+    app.run(host="localhost",debug=True,port=14000)
                    

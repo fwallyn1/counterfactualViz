@@ -12,10 +12,12 @@ function onchange(dataset,data_info) {
     var proba_x = dataset.proba_x[selectValue];
     var proba_c = dataset.proba_c[selectValue];
     d3Chart(dataset,selectValue,data_info);
+    draw_predict_class_circle(proba_x,"x");
+    draw_predict_class_circle(proba_c,"c");
     draw_percent_bar(proba_x);
     draw_percent_bar(proba_c);
-    draw_text_percent(proba_x,proba_c);
-    text_description(dataset,selectValue)
+    //draw_text_percent(proba_x,proba_c);
+    text_description(dataset,selectValue);
 };
 
 function makeSelect(dataset,data_info){

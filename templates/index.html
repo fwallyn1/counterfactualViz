@@ -13,7 +13,7 @@
   <body>
     <div class = "wrapper">
       <header>
-      <h1 id="titre-principal"> Indivudual's counterfactual visualization</h1>
+      <h1 id="titre-principal"> Indivudual's counterfactual visualization on churn dataset</h1>
       </header>
   
   <div id="right-bar">
@@ -39,7 +39,7 @@
                   <div id="text-display">
                   </div>
 
-                  <div id="space"></div>
+                  <div id="circle-class"></div>
                   <div id="model-display">
                     <div id = "bars" >
                     </div>
@@ -59,6 +59,7 @@
       const DataUrl = "{{ url_for('get_data') }}";
   </script>
   <script src="{{ url_for('static', filename='js/select.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/indiv_class.js') }}"></script>
   <script src="{{ url_for('static', filename='js/percentage_bar.js') }}"></script>
   <script src="{{ url_for('static', filename='js/main_graph.js') }}"></script>
   <script src="{{ url_for('static', filename='js/text_percentage.js') }}"></script> 

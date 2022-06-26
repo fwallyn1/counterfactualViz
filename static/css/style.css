@@ -20,10 +20,15 @@ header
     justify-items: center;
   }
 
+#d3
+{
+    overflow-x: scroll;
+    height: 700px;
 
-#d3 svg { /*background-color: rgba(94, 92, 92, 0.411); */
-    margin: auto;
 }
+
+/* #d3 svg { /*background-color: rgba(94, 92, 92, 0.411);
+} */
 
 body
 {
@@ -36,13 +41,14 @@ background-color: rgba(207,208,210,.2);
     display:flex;
     flex-direction:column ;
     justify-self: start;
+    width: 100%;
 }
 
 #header-container
 {
     display:flex;
     width : 80%;
-    height:20%;
+    height:10%;
     margin : auto;
     align-content: center;
 }
@@ -67,6 +73,9 @@ background-color: rgba(207,208,210,.2);
 #bars
 {
     width:260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 #fleche img
 {
@@ -83,4 +92,11 @@ background-color: rgba(207,208,210,.2);
 .description-title
 {
     font-weight: bold;
+}
+
+#circle-class
+{
+    display: flex;
+    flex-direction : column;
+    justify-content: space-between;
 }
