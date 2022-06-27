@@ -23,12 +23,10 @@ header
 #d3
 {
     overflow-x: scroll;
-    height: 700px;
+    /* height: 700px; */
 
 }
 
-/* #d3 svg { /*background-color: rgba(94, 92, 92, 0.411);
-} */
 
 body
 {
@@ -48,7 +46,7 @@ background-color: rgba(207,208,210,.2);
 {
     display:flex;
     width : 80%;
-    height:10%;
+    height:15%;
     margin : auto;
     align-content: center;
 }
@@ -56,9 +54,9 @@ background-color: rgba(207,208,210,.2);
 {   
     grid-column: 1;
     grid-row: 2;
-    width: auto;  /* Or whatever */
-    height: 100%; /* Or whatever */
-    margin: auto;  /* Magic! */
+    width: auto;  
+    height: 100%; 
+    margin: auto;  
     justify-content: center;
     align-content: center;
     text-align: center;

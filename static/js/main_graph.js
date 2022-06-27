@@ -54,12 +54,12 @@ function slice_text(string){
 function d3Chart(data,id_indiv,data_info){
     var len_max = d3.max(data.col.map(d => d.length) );
     const margin = {top: 0, right: 0, bottom: 0, left: 0},
-    inner_margin = {top: 20, right: 10, bottom: 12*len_max*(0.7), left: 10},
+    inner_margin = {top: 20, right: 10, bottom: 10*len_max*(0.7), left: 10},
     //base rectangle width
     rect_width = 100,
     // width & height of svg in function of feature name length
     width = data.col.length * rect_width + inner_margin.left + inner_margin.right + 14*len_max*0.7,
-    height = 500 - margin.top - margin.bottom + 12*len_max*(0.7),
+    height = 400 - margin.top - margin.bottom + 10*len_max*(0.7),
     //barPadding = 7,
     //graph_misc = {ylabel:4, xlabelH :4, title:9},
 
@@ -73,6 +73,7 @@ function d3Chart(data,id_indiv,data_info){
     var col = data.col
     // construct svg
     var svg = d3.select('#d3')
+    .attr("height",height)
     .append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -185,20 +186,29 @@ function d3Chart(data,id_indiv,data_info){
                 })
                 .attr('dy', '-0.8em').attr('x', x(col_name)+(width/data.col.length)/2)
                 var nLinesCf = x_val.length
-                const custom_arrow =   {p1 :[(x(col_name)+(width/data.col.length)/2)-10,y(0.25)-10],
+                const custom_arrow =   {p1 : [(x(col_name)+(width/data.col.length)/2)-10,y(0.25)-10],
                                         p2 : [(x(col_name)+(width/data.col.length)/2)-10,y(0.75)+10],
                                         p3 : [(x(col_name)+(width/data.col.length)/2),y(0.75)],
                                         p4 : [(x(col_name)+(width/data.col.length)/2)+10,y(0.75)+10],
                                         p5 : [(x(col_name)+(width/data.col.length)/2)+10,y(0.25)-10],
                                         p6 : [(x(col_name)+(width/data.col.length)/2)-10, y(0.25)-10]
-        };
-        contour.append("path")
-        .attr('d', d3.line()([custom_arrow.p1,custom_arrow.p2,custom_arrow.p3,custom_arrow.p4,custom_arrow.p5,custom_arrow.p6]))
-        .attr("fill",arrow_color)
-        .attr("fill-opacity","0.5")
-        .attr("stroke",arrow_color)
-        .attr("stroke-opacity","0.8");
-        }  
+                                    };
+                const custom_line = {p1 : [(x(col_name)+(width/data.col.length)/2)-15,y(0.25)-10],
+                                    p2 : [(x(col_name)+(width/data.col.length)/2)+15,y(0.25)-10]
+                                    };
+
+                contour.append("path")
+                .attr('d', d3.line()([custom_arrow.p1,custom_arrow.p2,custom_arrow.p3,custom_arrow.p4,custom_arrow.p5,custom_arrow.p6]))
+                .attr("fill",arrow_color)
+                .attr("fill-opacity","0.5")
+                .attr("stroke",arrow_color)
+                .attr("stroke-opacity","0.8");
+
+                contour.append("path")
+                    .attr("d",d3.line()([custom_line.p1,custom_line.p2]))
+                    .attr("stroke","black")
+                    .attr("stroke-width","2")
+                }  
         }
         //Si quantitatif
         
@@ -230,13 +240,16 @@ function d3Chart(data,id_indiv,data_info){
             .attr("text-anchor","middle")
             .style("font-weight","bold");
                        
-            const custom_arrow =   {p1 :[(x(col_name)+(width/data.col.length)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-10],
+            var custom_arrow =   {p1 :[(x(col_name)+(width/data.col.length)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-10],
                                     p2 : [(x(col_name)+(width/data.col.length)/2)-10,x_val>cf_val ? y(transf_cf)-20 : y(transf_cf)+10],
                                     p3 : [(x(col_name)+(width/data.col.length)/2),x_val>cf_val ? y(transf_cf)-10 : y(transf_cf)],
                                     p4 : [(x(col_name)+(width/data.col.length)/2)+10,x_val>cf_val ? y(transf_cf)-20 : y(transf_cf)+10],
                                     p5 : [(x(col_name)+(width/data.col.length)/2)+10,x_val>cf_val ? y(transf_x) : y(transf_x)-10],
                                     p6 : [(x(col_name)+(width/data.col.length)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-10]
             };
+            var custom_line = {p1 :[(x(col_name)+(width/data.col.length)/2)-15, x_val>cf_val ? y(transf_x) : y(transf_x)-10],
+                                p2 : [(x(col_name)+(width/data.col.length)/2)+15,x_val>cf_val ? y(transf_x) : y(transf_x)-10]};
+
             contour.append("path")
             .attr('d', d3.line()([custom_arrow.p1,custom_arrow.p2,custom_arrow.p3,custom_arrow.p4,custom_arrow.p5,custom_arrow.p6]))
             .attr("fill",arrow_color)
@@ -244,6 +257,10 @@ function d3Chart(data,id_indiv,data_info){
             .attr("stroke",arrow_color)
             .attr("stroke-opacity","0.8")
             ;
+            contour.append("path")
+            .attr("d",d3.line()([custom_line.p1,custom_line.p2]))
+            .attr("stroke","black")
+            .attr("stroke-width","2")
             }  
 
             }                
