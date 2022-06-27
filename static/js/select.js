@@ -20,6 +20,10 @@ function onchange(dataset,data_info) {
     text_description(dataset,selectValue);
 };
 
+function switchToNoChanges(){
+    d3.select("#d3 svg").remove();
+}
+
 function makeSelect(dataset,data_info){
 var indiv_range = d3.range([dataset.X[0].length]);
 
@@ -35,4 +39,12 @@ var options = select
 	.text(function (d) { return d; })
     //.attr("value",function (d) { return d; });
 
+d3.select("#changes")
+.on(
+  "mouseover", function(d) {
+    d3.select(this).style("cursor", "pointer")})
+.on("mouseout",function(d) {
+  d3.select(this).style("cursor", "default"); 
+})
+.on("click",function(){switchToNoChanges();})
 };
