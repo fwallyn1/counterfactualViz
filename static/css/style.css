@@ -23,7 +23,7 @@ header
 #d3
 {
     overflow-x: scroll;
-    /* height: 700px; */
+    /*  height: 700px; */
 
 }
 
@@ -40,6 +40,7 @@ background-color: rgba(207,208,210,.2);
     flex-direction:column ;
     justify-self: start;
     width: 100%;
+    justify-content: space-around;
 }
 
 #header-container
@@ -73,12 +74,13 @@ background-color: rgba(207,208,210,.2);
     width:260px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 #fleche img
 {
     width: 100px;
     height: 100px;
+    transform: translate(0px, 10px);
 }
 
 #choice-id
@@ -96,5 +98,5 @@ background-color: rgba(207,208,210,.2);
 {
     display: flex;
     flex-direction : column;
-    justify-content: space-between;
+    justify-content: space-around;
 }

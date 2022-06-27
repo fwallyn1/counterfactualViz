@@ -73,7 +73,7 @@ function d3Chart(data,id_indiv,data_info){
     var col = data.col
     // construct svg
     var svg = d3.select('#d3')
-    .attr("height",height)
+    .style("height",height+50)
     .append("svg")
     .attr("width", width)
     .attr("height", height)
