@@ -4,7 +4,7 @@ import numpy as np
 import json
 app = Flask(__name__)
 
-DATASET_PATH = 'data_churn.json'
+DATASET_PATH = 'data_churn_probs.json'
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -38,6 +38,6 @@ def form_example():
 
 
 if __name__ == '__main__':
-    app.run(host="localhost",debug=True,port=14000)
+    app.run(host="localhost",debug=False,port=14000)
 
 

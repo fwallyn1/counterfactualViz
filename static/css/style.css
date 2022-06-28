@@ -50,6 +50,7 @@ background-color: rgba(207,208,210,.2);
     height:15%;
     margin : auto;
     align-content: center;
+    justify-content: space-between;
 }
 #right-bar
 {   

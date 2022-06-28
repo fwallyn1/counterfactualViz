@@ -23,7 +23,7 @@
       <form method="post">
         <label for="threshold">threshold</label>
         <input id = "threshold" type="range" name="threshold"
-        min="0" max="1" value="0.5" step="0.05"></input>
+        min="0" max="1" value="0.5" step="0.1"></input>
     </form>
     <script>
       let result = document.getElementById("test-val"); 
@@ -36,17 +36,15 @@
 
   <div id = graph-container>
     <div id = "header-container">
-                  <div id="text-display">
-                  </div>
-
-                  <div id="circle-class"></div>
                   <div id="model-display">
+                  <div id="circle-class"></div>
+                  
                     <div id = "bars" >
                     </div>
                     <div id = "fleche" >
                     </div>
-                    <div id = "pie"></div>
-                  </div>        
+                  </div>
+                  <div id = "pie"></div>    
     </div>
     <!-- Div to manipulate -->
     <div id="d3"></div>
