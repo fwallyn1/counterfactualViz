@@ -1,11 +1,13 @@
 
 
 function drawPieChart(data,id_indiv){
-    var width = 150
+    var circle_width = 150
     height = 150
+    legend_width = 300
     margin = 10
-
-    let n_changes = 0,
+    color_change = "#69b3a2"
+    color_no_change = "#404080"
+/*     let n_changes = 0,
     n_no_changes = 0;
 
     for (let id_col of d3.range(0,data.col.length)){
@@ -22,30 +24,32 @@ function drawPieChart(data,id_indiv){
          };
 
     }
-    
-    // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-    var radius = Math.min(width, height) / 2 - margin
+ */    
+    // The radius of the pieplot is half the circle_width or half the height (smallest one). I subtract a bit of margin.
+    var radius = Math.min(circle_width, height) / 2 - margin
 
     // append the svg object to the div called 'my_dataviz'
     var svg = d3.select("#pie")
     .append("svg")
-        .attr("width", width)
+        .attr("width", circle_width + legend_width)
         .attr("height", height)
-    .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var pie_chart = svg.append("g")
+        .attr("transform", "translate(" + circle_width / 2 + "," + height / 2 + ")");
 
     // Create dummy data
-    var data = {changes: n_changes, no_changes: n_no_changes, }
+    var changes_dict = {changes: data.changes[id_indiv].n_changes, no_changes: data.changes[id_indiv].n_no_changes }
 
+    console.log(changes_dict)
     // set the color scale
     var color = d3.scaleOrdinal()
-    .domain(data)
-    .range(["grey","blue"]);
+    .domain(changes_dict)
+    .range([color_change,color_no_change]);
 
     // Compute the position of each group on the pie:
     var pie = d3.pie()
     .value(function(d) {return d.value; })
-    var data_ready = pie(d3.entries(data))
+    var data_ready = pie(d3.entries(changes_dict))
     // Now I know that group A goes from 0 degrees to x degrees and so on.
 
     // shape helper to build arcs:
@@ -54,27 +58,35 @@ function drawPieChart(data,id_indiv){
     .outerRadius(radius)
 
     // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-    svg
+    pie_chart
     .selectAll('slices')
     .data(data_ready)
     .enter()
     .append('path')
         .attr('d', arcGenerator)
-        .attr("id",function(d){return d.data.key})
+        .attr("class",function(d){return d.data.key})
         .attr('fill', function(d){ return(color(d.data.key)) })
         .attr("stroke", "black")
         .style("stroke-width", "2px")
         .style("opacity", 0.7)
 
     // Now add the annotation. Use the centroid method to get the best coordinates
-    console.log(n_changes+n_no_changes)
-    svg
+    pie_chart
     .selectAll('slices')
     .data(data_ready)
     .enter()
     .append('text')
-    .text(function(d){ return `${Math.round((d.data.value/(n_changes+n_no_changes))*100)}%`})
+    .text(function(d){ return `${Math.round((d.data.value/(changes_dict.changes+changes_dict.no_changes))*100)}%`})
     .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
+    .attr("class",function(d){return d.data.key})
     .style("text-anchor", "middle")
-    .style("font-size", 17)
+    .style("font-size", 16)
+
+    var legend = svg.append("g")
+                    .attr("transform",(`translate(${circle_width},0)`));
+    
+    legend.append("circle").attr("cx",10).attr("cy",height/2 -20).attr("r", 6).style("fill", color_no_change).attr("class","no_changes")
+    legend.append("circle").attr("cx",10).attr("cy",height/2 +20).attr("r", 6).style("fill", color_change).attr("class","changes")
+    legend.append("text").attr("x", 20).attr("y", height/2 -20).text("Features which don't change").style("font-size", "15px").style("text-decoration","underline").attr("alignment-baseline","middle").attr("class","no_changes")
+    legend.append("text").attr("x", 20).attr("y", height/2 +20).text("Features which change").style("font-size", "15px").style("text-decoration","underline").attr("alignment-baseline","middle").attr("class","changes")
 }
