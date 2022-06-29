@@ -49,8 +49,8 @@ function run(datasets) {
     }
     var prob = String(d3.select("#threshold").property('value'))
     d3ChartOnlyChanges(dataset[prob],0,data_info[prob]);
-    draw_predict_class_circle(dataset[prob].proba_x[0],"x");
-    draw_predict_class_circle(dataset[prob].proba_c[0],"c");
+    draw_predict_class_circle(dataset[prob].y_x[0],"x");
+    draw_predict_class_circle(dataset[prob].y_c[0],"c");
     draw_percent_bar(dataset[prob].proba_x[0]);
     draw_percent_bar(dataset[prob].proba_c[0]);
     drawPieChart(dataset[prob],0);
