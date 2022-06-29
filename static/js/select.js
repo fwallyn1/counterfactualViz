@@ -1,25 +1,35 @@
 
-
+function parseProb(prob){
+  var parse_prob = ""
+  if (prob.length === 1){
+    parse_prob = prob + ".0"
+  }
+  else{
+    parse_prob = prob;
+  }
+  return parse_prob
+}
 function onchange(dataset,data_info) {
     d3.selectAll("svg").remove();
     d3.selectAll("#text-display p").remove()
     d3.selectAll("#text-description .description-title,ul").remove()
     selectValue = d3.select('select').property('value');
     selectValue = Number(selectValue);
+    var prob = parseProb(d3.select("#threshold").property('value'))
     /*d3.select('body')
 		.append('p')
 		.text(`${dataset.col[0]} +  is the last selected option.`)*/
-    var proba_x = dataset.proba_x[selectValue];
-    var proba_c = dataset.proba_c[selectValue];
-    d3ChartOnlyChanges(dataset,selectValue,data_info);
+    var proba_x = dataset[prob].proba_x[selectValue];
+    var proba_c = dataset[prob].proba_c[selectValue];
+    d3ChartOnlyChanges(dataset[prob],selectValue,data_info[prob]);
     draw_predict_class_circle(proba_x,"x");
     draw_predict_class_circle(proba_c,"c");
     draw_percent_bar(proba_x);
     draw_percent_bar(proba_c);
     //draw_text_percent(proba_x,proba_c);
-    text_description(dataset,selectValue);
-    drawPieChart(dataset,selectValue);
-    makeSelectChanges(dataset,data_info);
+    text_description(dataset[prob],selectValue);
+    drawPieChart(dataset[prob],selectValue);
+    makeSelectChanges(dataset[prob],data_info[prob]);
 };
 
 function switchToNoChanges(dataset,data_info){
@@ -82,9 +92,37 @@ function makeSelectChanges(dataset,data_info){
   .on("click",function(){switchToNoChanges(dataset,data_info);})
   };
 
+function onChangeThreshold(dataset,data_info){
+  d3.selectAll("svg").remove();
+  d3.selectAll("#text-display p").remove()
+  d3.selectAll("#text-description .description-title,ul").remove()
+  var selectValue = d3.select('select').property('value');
+  selectValue = Number(selectValue);
+  var prob = parseProb(d3.select("#threshold").property('value'))
+  console.log(prob)
+  var proba_x = dataset[prob].proba_x[selectValue];
+  var proba_c = dataset[prob].proba_c[selectValue];
+  d3ChartOnlyChanges(dataset[prob],selectValue,data_info[prob]);
+  draw_predict_class_circle(proba_x,"x");
+  draw_predict_class_circle(proba_c,"c");
+  draw_percent_bar(proba_x);
+  draw_percent_bar(proba_c);
+  //draw_text_percent(proba_x,proba_c);
+  text_description(dataset[prob],selectValue);
+  drawPieChart(dataset[prob],selectValue);
+  makeSelectChanges(dataset[prob],data_info[prob]);
+}
+
+  function makeSelectThreshold(dataset,data_info){
+    d3.select("#threshold")
+    .on('change', function(){onChangeThreshold(dataset,data_info)});
+  };
 
 function makeSelect(dataset,data_info){
-var indiv_range = d3.range([dataset.X[0].length]);
+
+var prob = parseProb(d3.select("#threshold").property('value'))
+
+var indiv_range = d3.range([dataset[prob].X[0].length]);
 
 var select = d3.select('#right-bar')
   .append('select')
@@ -95,10 +133,11 @@ var options = select
   .selectAll('option')
 	.data(indiv_range).enter()
 	.append('option')
-	.text(function (d) { return d; })
+	.text(function (d) { return d; });
     //.attr("value",function (d) { return d; });
   
-  makeSelectChanges(dataset,data_info)
+  makeSelectChanges(dataset[prob],data_info[prob]);
+  makeSelectThreshold(dataset,data_info);
 
 };
 

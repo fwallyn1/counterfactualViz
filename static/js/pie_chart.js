@@ -40,7 +40,6 @@ function drawPieChart(data,id_indiv){
     // Create dummy data
     var changes_dict = {changes: data.changes[id_indiv].n_changes, no_changes: data.changes[id_indiv].n_no_changes }
 
-    console.log(changes_dict)
     // set the color scale
     var color = d3.scaleOrdinal()
     .domain(changes_dict)

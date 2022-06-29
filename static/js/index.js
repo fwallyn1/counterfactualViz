@@ -20,7 +20,6 @@ function run(datasets) {
         col_names_no_changes = [],
         n_no_changes = 0;
         dataset[prob].changes = []
-        console.log(dataset[prob])
         for (let id_indiv of d3.range(0,dataset[prob].X.length)){
             for (let id_col of d3.range(0,dataset[prob].col.length)){
                 // valeur pour l'exemple'
@@ -48,14 +47,14 @@ function run(datasets) {
             n_no_changes =0;
         }
     }
-
-    d3ChartOnlyChanges(dataset["0.5"],0,data_info["0.5"]);
-    draw_predict_class_circle(dataset["0.5"].proba_x[0],"x");
-    draw_predict_class_circle(dataset["0.5"].proba_c[0],"c");
-    draw_percent_bar(dataset["0.5"].proba_x[0]);
-    draw_percent_bar(dataset["0.5"].proba_c[0]);
-    drawPieChart(dataset["0.5"],0);
+    var prob = String(d3.select("#threshold").property('value'))
+    d3ChartOnlyChanges(dataset[prob],0,data_info[prob]);
+    draw_predict_class_circle(dataset[prob].proba_x[0],"x");
+    draw_predict_class_circle(dataset[prob].proba_c[0],"c");
+    draw_percent_bar(dataset[prob].proba_x[0]);
+    draw_percent_bar(dataset[prob].proba_c[0]);
+    drawPieChart(dataset[prob],0);
     //draw_text_percent(dataset.proba_x[0],dataset.proba_c[0]);
-    text_description(dataset["0.5"],0);
-    makeSelect(dataset["0.5"],data_info["0.5"]);
+    text_description(dataset[prob],0);
+    makeSelect(dataset,data_info);
 };
