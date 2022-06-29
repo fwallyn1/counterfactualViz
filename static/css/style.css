@@ -16,7 +16,6 @@ header
     display: grid;
     grid-template-columns: 15% 85%;
     grid-gap: 10px;
-    grid-template-columns: 10% 90%;
     justify-items: center;
   }
 
