@@ -101,3 +101,9 @@ background-color: rgba(207,208,210,.2);
     flex-direction : column;
     justify-content: space-around;
 }
+
+#circle-striped
+{
+    grid-column: 2;
+    grid-row : 2;
+}

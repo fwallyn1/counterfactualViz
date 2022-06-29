@@ -23,9 +23,11 @@ function onchange(dataset,data_info) {
     var proba_c = dataset[prob].proba_c[selectValue];
     var y_x = dataset[prob].y_x[selectValue];
     var y_c = dataset[prob].y_c[selectValue];
+    var y_true_x = dataset[prob].y_true_x[selectValue];
     d3ChartOnlyChanges(dataset[prob],selectValue,data_info[prob]);
-    draw_predict_class_circle(y_x,"x");
+    draw_predict_class_circle(y_x,"x",y_true_x);
     draw_predict_class_circle(y_c,"c");
+    drawCircleStriped()
     draw_percent_bar(proba_x);
     draw_percent_bar(proba_c);
     //draw_text_percent(proba_x,proba_c);
@@ -106,9 +108,11 @@ function onChangeThreshold(dataset,data_info){
   var proba_c = dataset[prob].proba_c[selectValue];
   var y_x = dataset[prob].y_x[selectValue];
   var y_c = dataset[prob].y_c[selectValue];
+  var y_true_x = dataset[prob].y_true_x[selectValue];
   d3ChartOnlyChanges(dataset[prob],selectValue,data_info[prob]);
-  draw_predict_class_circle(y_x,"x");
+  draw_predict_class_circle(y_x,"x",y_true_x);
   draw_predict_class_circle(y_c,"c");
+  drawCircleStriped();
   draw_percent_bar(proba_x);
   draw_percent_bar(proba_c);
   //draw_text_percent(proba_x,proba_c);

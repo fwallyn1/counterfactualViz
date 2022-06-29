@@ -1,0 +1,41 @@
+function drawCircleStriped(){
+    const width = 400,
+    height = 70;
+    var svg = d3.select("#circle-striped")
+                .append("svg")
+                .attr("width",width)
+                .attr("height",height)
+    svg.append("defs")
+    .append("pattern")
+    .attr("id","stripes")
+    .attr("width","8")
+    .attr("height","8")
+    .attr("fill","red")
+    .attr("patternUnits","userSpaceOnUse")
+    .attr("patternTransform","rotate(60)")
+    .append("line")
+    .attr("x1","0")
+    .attr("y1","0")
+    .attr("x2","0")
+    .attr("y2","8")
+    .attr("stroke","grey")
+    .attr("stroke-width","5");
+
+    var circleOuter = svg.append("circle")
+    .attr("cx",25)
+    .attr("cy",35)
+    .attr("r",20)
+    .attr("stroke","black")
+    .attr("fill", "url(#stripes)")
+    
+    svg.append("text")
+    .attr("x",55)
+    .attr("y",35)
+    .text(" When real class is different from predicted class")
+    .attr("text-anchor","start")
+    svg.append("text")
+    .attr("x",5)
+    .attr("y",17)
+    .text("*")
+    .style("font-size",20)
+}

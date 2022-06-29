@@ -20,7 +20,7 @@ function run(datasets) {
         col_names_no_changes = [],
         n_no_changes = 0;
         dataset[prob].changes = []
-        for (let id_indiv of d3.range(0,dataset[prob].X.length)){
+        for (let id_indiv of d3.range(0,dataset[prob].X[0].length)){
             for (let id_col of d3.range(0,dataset[prob].col.length)){
                 // valeur pour l'exemple'
                 var x_val = dataset[prob].X[id_col][id_indiv]
@@ -47,9 +47,11 @@ function run(datasets) {
             n_no_changes =0;
         }
     }
+    console.log(dataset[prob].changes)
     var prob = String(d3.select("#threshold").property('value'))
     d3ChartOnlyChanges(dataset[prob],0,data_info[prob]);
-    draw_predict_class_circle(dataset[prob].y_x[0],"x");
+    drawCircleStriped();
+    draw_predict_class_circle(dataset[prob].y_x[0],"x",dataset[prob].y_true_x[0]);
     draw_predict_class_circle(dataset[prob].y_c[0],"c");
     draw_percent_bar(dataset[prob].proba_x[0]);
     draw_percent_bar(dataset[prob].proba_c[0]);
