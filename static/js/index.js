@@ -47,8 +47,8 @@ function run(datasets) {
             n_no_changes =0;
         }
     }
-    console.log(dataset[prob].changes)
-    var prob = String(d3.select("#threshold").property('value'))
+    
+    var prob = dataset["0.0"].y_x[0] === 0 ? "1.0" : "0.0";
     d3ChartOnlyChanges(dataset[prob],0,data_info[prob]);
     drawCircleStriped();
     draw_predict_class_circle(dataset[prob].y_x[0],"x",dataset[prob].y_true_x[0]);
@@ -59,4 +59,15 @@ function run(datasets) {
     //draw_text_percent(dataset.proba_x[0],dataset.proba_c[0]);
     text_description(dataset[prob],0);
     makeSelect(dataset,data_info);
+    var id_indiv = d3.select('select').property('value'); 
+    var proba_x = dataset["0.0"].proba_x[id_indiv];
+    var y_x = dataset["0.0"].y_x[id_indiv];
+    var input_range = d3.select('#form-threshold')
+    .append('input')
+    .attr('id','threshold')
+    .attr("type","range")
+    .attr("min",y_x === 0 ? Math.round(proba_x*10)/10 : 0)
+    .attr("max",y_x === 0 ? 1 : Math.round(proba_x*10)/10)
+    .attr("value",y_x === 0 ? 1 : 0)
+    .attr("step",0.1)
 };

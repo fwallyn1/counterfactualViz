@@ -24,6 +24,10 @@ function onchange(dataset,data_info) {
     var y_x = dataset[prob].y_x[selectValue];
     var y_c = dataset[prob].y_c[selectValue];
     var y_true_x = dataset[prob].y_true_x[selectValue];
+    d3.select('input')
+    .attr("min",y_x === 0 ? Math.round(proba_x*10)/10 : 0)
+    .attr("max",y_x === 0 ? 1 : Math.round(proba_x*10)/10)
+    .attr("value",y_x === 0 ? 1 : 0)
     d3ChartOnlyChanges(dataset[prob],selectValue,data_info[prob]);
     draw_predict_class_circle(y_x,"x",y_true_x);
     draw_predict_class_circle(y_c,"c");
@@ -34,6 +38,7 @@ function onchange(dataset,data_info) {
     text_description(dataset[prob],selectValue);
     drawPieChart(dataset[prob],selectValue);
     makeSelectChanges(dataset[prob],data_info[prob]);
+    makeSelectThreshold(dataset,data_info)
 };
 
 function switchToNoChanges(dataset,data_info){
@@ -122,13 +127,20 @@ function onChangeThreshold(dataset,data_info){
 }
 
   function makeSelectThreshold(dataset,data_info){
+    var id_indiv = d3.select('select').property('value');
+    var proba_x = dataset["0.0"].proba_x[id_indiv];
+    var y_x = dataset["0.0"].y_x[id_indiv];
     d3.select("#threshold")
+    .attr("min",y_x === 0 ? Math.round(proba_x*10)/10 : 0)
+    .attr("max",y_x === 0 ? 1 : Math.round(proba_x*10)/10)
+    .attr("value",y_x === 0 ? 1 : 0)
     .on('change', function(){onChangeThreshold(dataset,data_info)});
   };
 
 function makeSelect(dataset,data_info){
 
-var prob = parseProb(d3.select("#threshold").property('value'))
+//var prob = parseProb(d3.select("#threshold").property('value'))
+var prob = dataset["0.0"].y_x[0] === 0 ? "1.0" : "0.0";
 
 var indiv_range = d3.range([dataset[prob].X[0].length]);
 
@@ -143,9 +155,8 @@ var options = select
 	.append('option')
 	.text(function (d) { return d; });
     //.attr("value",function (d) { return d; });
-  
-  makeSelectChanges(dataset[prob],data_info[prob]);
-  makeSelectThreshold(dataset,data_info);
+makeSelectChanges(dataset[prob],data_info[prob]);
+makeSelectThreshold(dataset,data_info);
 
 };
 
