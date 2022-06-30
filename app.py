@@ -5,11 +5,22 @@ import json
 app = Flask(__name__)
 
 DATASET_PATH = 'data_churn_probs.json'
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    """
+    first page to choose individual and threshold to visualize
+    """
+    return render_template('first_page.html')
 
-
+@app.route('/counterfactual')
+def counterfactual():
+    """
+    ENDPOINT du contrefactuel pour un individu et un threshold
+    """
+    id_indiv = request.args.get("id_indiv")
+    threshold = request.args.get("threshold")
+    return render_template('counterfactual.html',id_indiv = id_indiv,threshold = threshold)
 
 @app.route('/get_data')
 def get_data():
