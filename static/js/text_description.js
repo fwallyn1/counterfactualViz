@@ -25,7 +25,7 @@ function text_description(data,id_indiv){
     d3.select("#text-description")
         .append("p")
         .attr("class","description-title")
-        .text("Feature changes for the counterfatual :")
+        .text("Feature changes for the counterfactual:")
     var list = d3.select("#text-description")
     .append("ul")
     for (let id_col of d3.range(0,data.col.length)){
