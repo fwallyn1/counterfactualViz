@@ -3,7 +3,7 @@ function draw_predict_class_circle(predict_class,type){
         bad_col = "#d95f02";
     var color = predict_class === 1 ? bad_col : good_col
     if (type === "x"){
-        var text = "Example*: "
+        var text = "Example: "
     }
     else{
         var text = "Counterfactual: "
