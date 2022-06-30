@@ -8,10 +8,10 @@ function draw_predict_class_circle(predict_class,type,real_class=null){
 
     var color = predict_class === 1 ? bad_col : good_col
     if (type === "x"){
-        var text = "Example* : "
+        var text = "Example*: "
     }
     else{
-        var text = "Counterfactual : "
+        var text = "Counterfactual: "
     }
 
     var churn = predict_class === 0 ? "don't churn" : "churn";
