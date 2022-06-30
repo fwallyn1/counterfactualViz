@@ -9,10 +9,3 @@ d3.select("#text-display")
         .text(function(d){return d;});
 
 }
-/*
-function draw_text_percent(result){
-    d3.select("#text-display")
-            .append("p")
-            .text(`Le modèle prédit une probabilité de rester client de ${Math.round(result*100)}%`)
-    
-    }*/

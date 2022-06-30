@@ -1,5 +1,6 @@
 
 function parseProb(prob){
+ /* Parse proba to add .0 when prob is 0 or 1 */
   var parse_prob = ""
   if (prob.length === 1){
     parse_prob = prob + ".0"
@@ -10,37 +11,41 @@ function parseProb(prob){
   return parse_prob
 }
 function onchange(dataset,data_info) {
+  /* Web page changes when switching to another individual 
+  */
+
+    /* Remove old values depending on the old individual */
     d3.selectAll("svg").remove();
     d3.selectAll("#text-display p").remove()
     d3.selectAll("#text-description .description-title,ul").remove()
     d3.select('#threshold').remove()
+    /* get new individual ID*/
     selectValue = d3.select('select').property('value');
     selectValue = Number(selectValue);
+    /* Construct new threshold range */
     makeSelectThreshold(dataset,data_info)
+    /* Get new prob depending on the threshold */
     var prob = parseProb(d3.select("#threshold").property('value'))
-    console.log(prob, " val:",d3.select("#threshold").attr("value"), " min:",d3.select("#threshold").attr("min"), " max:",d3.select("#threshold").attr("max"),
-    " step:",d3.select("#threshold").attr("step"))
-    /*d3.select('body')
-		.append('p')
-		.text(`${dataset.col[0]} +  is the last selected option.`)*/
+    /* Get variables of interest */
     var proba_x = dataset[prob].proba_x[selectValue];
     var proba_c = dataset[prob].proba_c[selectValue];
     var y_x = dataset[prob].y_x[selectValue];
     var y_c = dataset[prob].y_c[selectValue];
     var y_true_x = dataset[prob].y_true_x[selectValue];
+    /* Reconstruct the graphs and texts */
     d3ChartOnlyChanges(dataset[prob],selectValue,data_info[prob]);
     draw_predict_class_circle(y_x,"x",y_true_x);
     draw_predict_class_circle(y_c,"c");
     drawCircleStriped()
     draw_percent_bar(proba_x);
     draw_percent_bar(proba_c);
-    //draw_text_percent(proba_x,proba_c);
     text_description(dataset[prob],selectValue);
     drawPieChart(dataset[prob],selectValue);
     makeSelectChanges(dataset[prob],data_info[prob]);
 };
 
 function switchToNoChanges(dataset,data_info){
+  /* Switch to the graph reprensenting features which don't change */
     selectValue = d3.select('select').property('value');
     selectValue = Number(selectValue);
     d3.select("#d3 svg").remove();
@@ -50,6 +55,7 @@ function switchToNoChanges(dataset,data_info){
 }
 
 function switchToOnlyChanges(dataset,data_info){
+  /* Switch to the graph reprensenting features which don't change */
   selectValue = d3.select('select').property('value');
   selectValue = Number(selectValue);
   d3.select("#d3 svg").remove();
@@ -59,6 +65,7 @@ function switchToOnlyChanges(dataset,data_info){
 }
 
 function makeSelectChanges(dataset,data_info){
+  /* Defines "on" properties of the pie chart and his legend */
   d3.selectAll(".changes")
   .on(
     "mouseover", function() {
@@ -101,6 +108,7 @@ function makeSelectChanges(dataset,data_info){
   };
 
 function onChangeThreshold(dataset,data_info){
+  /* Define the behaviour when the threshold change */
   d3.selectAll("svg").remove();
   d3.selectAll("#text-display p").remove()
   d3.selectAll("#text-description .description-title,ul").remove()
@@ -122,13 +130,13 @@ function onChangeThreshold(dataset,data_info){
   drawCircleStriped();
   draw_percent_bar(proba_x);
   draw_percent_bar(proba_c);
-  //draw_text_percent(proba_x,proba_c);
   text_description(dataset[prob],selectValue);
   drawPieChart(dataset[prob],selectValue);
   makeSelectChanges(dataset[prob],data_info[prob]);
 }
 
   function makeSelectThreshold(dataset,data_info){
+    /* Construct the threshold input range */
     var selectValue = d3.select('select').property('value');
     var proba_x = dataset["0.0"].proba_x[selectValue];
     var y_x = dataset["0.0"].y_x[selectValue];
@@ -147,8 +155,7 @@ function onChangeThreshold(dataset,data_info){
   };
 
 function makeSelect(dataset,data_info){
-
-//var prob = parseProb(d3.select("#threshold").property('value'))
+/*  Construct the select object in order to choose the individual to visualize*/
 var prob = dataset["0.0"].y_x[0] === 0 ? "1.0" : "0.0";
 
 var indiv_range = d3.range([dataset[prob].X[0].length]);

@@ -1,30 +1,14 @@
 
 
 function drawPieChart(data,id_indiv){
+    /* Construct piechart and his legend to compare features which change and those which don't change
+    between example and counterfactual*/
     var circle_width = 150
     height = 150
     legend_width = 300
     margin = 10
     color_change = "#69b3a2"
     color_no_change = "#404080"
-/*     let n_changes = 0,
-    n_no_changes = 0;
-
-    for (let id_col of d3.range(0,data.col.length)){
-         // valeur pour l'exemple'
-         var x_val = data.X[id_col][id_indiv]
-         // valeur pour le contrefactuel
-         var cf_val = data.cf[id_col][id_indiv]
-
-         if (x_val!==cf_val){
-            n_changes +=1;
-         }
-         else{
-            n_no_changes +=1;
-         };
-
-    }
- */    
     // The radius of the pieplot is half the circle_width or half the height (smallest one). I subtract a bit of margin.
     var radius = Math.min(circle_width, height) / 2 - margin
 
@@ -37,7 +21,7 @@ function drawPieChart(data,id_indiv){
     var pie_chart = svg.append("g")
         .attr("transform", "translate(" + circle_width / 2 + "," + height / 2 + ")");
 
-    // Create dummy data
+    // Create data
     var changes_dict = {changes: data.changes[id_indiv].n_changes, no_changes: data.changes[id_indiv].n_no_changes }
 
     // set the color scale
