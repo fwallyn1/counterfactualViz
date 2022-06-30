@@ -11,9 +11,11 @@ function onchange(dataset,data_info) {
 		.text(`${dataset.col[0]} +  is the last selected option.`)*/
     var proba_x = dataset.proba_x[selectValue];
     var proba_c = dataset.proba_c[selectValue];
+    var y_x = dataset.y_x[selectValue];
+    var y_c = dataset.y_c[selectValue];
     d3ChartOnlyChanges(dataset,selectValue,data_info);
-    draw_predict_class_circle(proba_x,"x");
-    draw_predict_class_circle(proba_c,"c");
+    draw_predict_class_circle(y_x,"x");
+    draw_predict_class_circle(y_c,"c");
     draw_percent_bar(proba_x);
     draw_percent_bar(proba_c);
     //draw_text_percent(proba_x,proba_c);

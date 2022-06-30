@@ -1,17 +1,16 @@
-function draw_predict_class_circle(proba,type){
-    var good_col = "#d95f02",
-        bad_col = "#1b9e77";
-    var colorScale = d3.scaleThreshold()
-        .domain([0,0.5,1])
-        .range([bad_col, bad_col, good_col,good_col]);
+function draw_predict_class_circle(predict_class,type){
+    var good_col = "#1b9e77",
+        bad_col = "#d95f02";
+    var color = predict_class === 1 ? bad_col : good_col
     if (type === "x"){
-        var text = "Example: "
+        var text = "Example*: "
     }
     else{
         var text = "Counterfactual: "
     }
 
-    var churn = proba<=0.5 ? "don't churn" : "churn";
+    var churn = predict_class === 0 ? "don't churn" : "churn";
+
 
     churn = churn.split(' ')
 
@@ -24,7 +23,7 @@ function draw_predict_class_circle(proba,type){
                 .attr("cx",200)
                 .attr("cy",25)
                 .attr("r",20)
-                .style("fill",colorScale(proba))
+                .style("fill",color)
                 .style("stroke","black")
                 //.style("fill-opacity","0.9")
                 //.style("stroke-opacity","1");
@@ -38,7 +37,7 @@ function draw_predict_class_circle(proba,type){
                 .text(text)
 
     circle_proba.append("text")
-    .attr("y",proba<=0.5 ? "15" : "20")
+    .attr("y",predict_class===0 ? "15" : "20")
     .attr("text-anchor","middle")
     .style("font-size",12)
     .selectAll('tspan').data(churn)

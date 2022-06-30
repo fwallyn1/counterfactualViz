@@ -43,8 +43,8 @@ function run(dataset) {
     }
 
     d3ChartOnlyChanges(dataset[0],0,data_info);
-    draw_predict_class_circle(dataset[0].proba_x[0],"x");
-    draw_predict_class_circle(dataset[0].proba_c[0],"c");
+    draw_predict_class_circle(dataset[0].y_x[0],"x");
+    draw_predict_class_circle(dataset[0].y_c[0],"c");
     draw_percent_bar(dataset[0].proba_x[0]);
     draw_percent_bar(dataset[0].proba_c[0]);
     drawPieChart(dataset[0],0);
