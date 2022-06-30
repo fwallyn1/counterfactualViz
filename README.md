@@ -18,4 +18,4 @@ input :  data_churn_probs.json in DATASET_PATH constant in $app.py$
 
 ## Example of interface :
 
-<img src="interface.png" width="128"/>
+<img src="interface.png" />
