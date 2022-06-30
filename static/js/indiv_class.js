@@ -5,10 +5,10 @@ function draw_predict_class_circle(proba,type){
         .domain([0,0.5,1])
         .range([bad_col, bad_col, good_col,good_col]);
     if (type === "x"){
-        var text = "Example : "
+        var text = "Example: "
     }
     else{
-        var text = "Counterfactual : "
+        var text = "Counterfactual: "
     }
 
     var churn = proba<=0.5 ? "don't churn" : "churn";
