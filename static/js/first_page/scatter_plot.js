@@ -1,43 +1,79 @@
-function drawScatterPlot(dataset,data_info,id_indiv=0){
-    var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+function drawScatterPlot(dataset,thresholds,id_indiv=0){
+    var margin = {top: 10, right: 50, bottom: 50, left: 60},
+    width = 460 ,
+    height = 400 ;
+
+    var good_col = "#d95f02",
+        bad_col = "#1b9e77";
+    var y_x_val = dataset["0.0"].y_x[id_indiv]
+    var color = y_x_val===0 ? good_col : bad_col;
 
     // append the svg object to the body of the page
     var svg = d3.select("#d3")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
-
+    .attr("width", width)
+    .attr("height", height)
     //Read the data
-
     // Add X axis
     var x = d3.scaleLinear()
-      .domain([0, 4000])
-      .range([ 0, width ]);
+      .domain([0, d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1)])
+      .range([margin.left,width-margin.right])
     svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .attr("transform", `translate(0,${height-margin.bottom})`)
+      .call(d3.axisBottom(x).ticks(d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1)));
   
     // Add Y axis
     var y = d3.scaleLinear()
-      .domain([0, 500000])
-      .range([ height, 0]);
+      .domain([0, 1])
+      .range([height-margin.bottom, margin.top]);
     svg.append("g")
+      .attr("transform", `translate(${margin.left},0)`)
       .call(d3.axisLeft(y));
-  
+
+    //console.log(thresholds)
+    var pointsToPlot = thresholds.map(x => [dataset[x].proba_c[id_indiv],dataset[x].changes[id_indiv].n_changes,x])
+    console.log(pointsToPlot)
     // Add dots
-    /* svg.append('g')
+    svg.append('g')
       .selectAll("dot")
-      .data(data)
+      .data(pointsToPlot)
       .enter()
-      .append("circle")
-        .attr("cx", function (d) { return x(d.GrLivArea); } )
-        .attr("cy", function (d) { return y(d.SalePrice); } )
-        .attr("r", 1.5)
-        .style("fill", "#69b3a2") */
-  
+      .append("a")
+      .attr("xlink:href",function (d) { return `/counterfactual?id_indiv=${id_indiv}&threshold=${d[2]}`; })
+        .append("circle")
+        .attr("cx", function (d) { return x(d[1]); } )
+        .attr("cy", function (d) { return y(d[0]); } )
+        .attr("r", 6)
+        .style("fill", color)
+        .on("mouseover",function(d){svg.append("line")
+                                      .attr("x1",x(0))
+                                      .attr("x2",x(d[1]))
+                                      .attr("y1",y(d[0]))
+                                      .attr("y2",y(d[0]))
+                                      .attr("stroke","black");
+                                    svg.append("line")
+                                      .attr("x1",x(d[1]))
+                                      .attr("x2",x(d[1]))
+                                      .attr("y1",y(0))
+                                      .attr("y2",y(d[0]))
+                                      .attr("stroke","black");})
+      .on("mouseout",function(d){d3.selectAll("#d3 line").remove()})
+        .append("title")
+        .text(function(d){return `Sparcity: ${d[1]}, Score of counterfactual: ${Math.round(d[0]*1000)/1000}`;})
+        .attr("font-size",10)
+    // Add X axis label:
+    svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width-margin.right)
+    .attr("y", height -margin.bottom+30)
+    .text("Sparcity");
+
+    // Y axis label:
+    svg.append("g")
+    .append("text")
+    .attr("text-anchor", "end")
+    .attr("transform","rotate(-90)")
+    .attr("y", margin.left-30)
+    .attr("x", -margin.top)
+    .text("Score")
 }

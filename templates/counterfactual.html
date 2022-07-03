@@ -17,12 +17,8 @@
       <h1 id="titre-principal"> Individual's counterfactual visualization on churn dataset</h1>
       </header>
   
-      <div id="right-bar">
-        <div id = "test-val"> </div>
-        <div id = "form-threshold"></div>
-        <div id="threshold-text"></div>
-        <p id="choice-id">Choose the individual to visualize</p>
-      </div>
+     <!-- <div id="right-bar">
+      </div> -->
 
       <div id = graph-container>
         <div id = "header-container">
@@ -44,7 +40,9 @@
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script>
-      const DataUrl = "{{ url_for('get_data') }}";
+      const DataUrl = "{{ url_for('get_data') }}",
+      id_indiv = "{{id_indiv}}",
+      threshold = "{{threshold}}"
   </script>
   <script src="{{ url_for('static', filename='js/select.js') }}"></script>
   <script src="{{ url_for('static', filename='js/indiv_class.js') }}"></script>

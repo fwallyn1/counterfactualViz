@@ -10,7 +10,6 @@ function computeDataInfo (dataset){
     return data_info
 }
 function addChangesInfo(dataset){
-
     
     for (prob of Object.keys(dataset)){
         let n_changes = 0,

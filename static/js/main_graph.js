@@ -125,6 +125,7 @@ function d3ChartNochanges(data,id_indiv,data_info){
         var y_c_val = data.y_c[id_indiv];
 
         var arrow_color = y_x_val===0 ? good_col : bad_col;
+        
         if(x_val===cf_val){
             // on ajoute un rectangle
             contour.append("rect")

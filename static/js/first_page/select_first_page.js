@@ -28,10 +28,12 @@ function makeSelectFirstPage(dataset,data_info){
           var proba_x = dataset["0.0"].proba_x[selectValue];
           var y_x = dataset["0.0"].y_x[selectValue];
           var y_true_x = dataset["0.0"].y_true_x[selectValue];
+          var thresholds = thresholdsToPlot(dataset,selectValue)
           /* Reconstruct the graphs and texts */
           draw_predict_class_circle(y_x,"x",y_true_x);
           drawCircleStriped()
           draw_percent_bar(proba_x);
+          drawScatterPlot(dataset,thresholds,selectValue)
       };
 
 

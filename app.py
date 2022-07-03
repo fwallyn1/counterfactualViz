@@ -20,7 +20,7 @@ def counterfactual():
     """
     id_indiv = request.args.get("id_indiv")
     threshold = request.args.get("threshold")
-    return render_template('counterfactual.html',id_indiv = id_indiv,threshold = threshold)
+    return render_template('counterfactual.html',id_indiv = id_indiv,threshold = str(threshold))
 
 @app.route('/get_data')
 def get_data():
