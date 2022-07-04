@@ -73,6 +73,10 @@ function run(datasets) {
     //draw_text_percent(dataset.proba_x[0],dataset.proba_c[0]);
     text_description(dataset[thresh],indiv);
     makeSelect(dataset,data_info,thresh,indiv);
+    var url = 'static/images/fleche.png';
+    var image = new Image();
+    image.src = url;
+    document.getElementById('fleche').appendChild(image)
     //makeSelectChanges(dataset[thresh],data_info[thresh],indiv);
     //makeSelectThreshold(dataset,data_info)
 };
