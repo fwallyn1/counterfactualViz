@@ -17,8 +17,9 @@
       <h1 id="titre-principal"> Individual's counterfactual visualization on churn dataset</h1>
       </header>
   
-     <!-- <div id="right-bar">
-      </div> -->
+      <div id="right-bar">
+        <p>Choose the individual to visualize</p>
+      </div>
 
       <div id = graph-container>
         <div id = "header-container">
@@ -44,6 +45,7 @@
       id_indiv = "{{id_indiv}}",
       threshold = "{{threshold}}"
   </script>
+  <script src="{{ url_for('static', filename='js/first_page/front_pareto.js') }}"></script>
   <script src="{{ url_for('static', filename='js/select.js') }}"></script>
   <script src="{{ url_for('static', filename='js/indiv_class.js') }}"></script>
   <script src="{{ url_for('static', filename='js/circle_striped.js') }}"></script>

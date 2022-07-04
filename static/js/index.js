@@ -1,13 +1,10 @@
 const urls = [DataUrl],
-indiv = id_indiv,
-thresh = threshold;
-
+indiv = id_indiv !== "None" ? id_indiv : 0,
+thresh = threshold
 Promise.all(urls.map(url => d3.json(url))).then(run);
-
 function run(datasets) {
     var dataset = datasets[0]
     var data_info = {};
-    
     for (prob of Object.keys(dataset)){
         data_info[prob] = []
         for (let id_col of d3.range(0,dataset[prob].col.length)){
@@ -49,10 +46,23 @@ function run(datasets) {
             n_no_changes =0;
         }
     }
-    console.log(indiv)
+    if (threshold === "None"){
+        var threshToPlot = thresholdsToPlot(dataset,indiv)
+        var obj = {}
+        for (prob of threshToPlot){
+            obj[prob] = dataset[prob].proba_c[indiv]
+        }
+        console.log(obj)
+        var thresh = dataset["0.0"].y_x[indiv] === 1 ? Object.keys(obj).reduce((key, v) => obj[v] < obj[key] ? v : key) : Object.keys(obj).reduce((key, v) => obj[v] > obj[key] ? v : key)
+        console.log(thresh)
+    }
+    else{
+        var thresh = threshold;
+    }
     d3.select("#threshold-text")
     .html("Threshold")
     //var prob = dataset["0.0"].y_x[indiv] === 0 ? "1.0" : "0.0";
+    console.log(threshold)
     d3ChartOnlyChanges(dataset[thresh],indiv,data_info[thresh]);
     drawCircleStriped();
     draw_predict_class_circle(dataset[thresh].y_x[indiv],"x",dataset[thresh].y_true_x[indiv]);
@@ -62,6 +72,7 @@ function run(datasets) {
     drawPieChart(dataset[thresh],indiv);
     //draw_text_percent(dataset.proba_x[0],dataset.proba_c[0]);
     text_description(dataset[thresh],indiv);
-    makeSelectChanges(dataset[thresh],data_info[thresh],indiv);
+    makeSelect(dataset,data_info,thresh,indiv);
+    //makeSelectChanges(dataset[thresh],data_info[thresh],indiv);
     //makeSelectThreshold(dataset,data_info)
 };

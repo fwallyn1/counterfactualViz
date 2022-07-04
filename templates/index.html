@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Data Dashboard">
+    <meta name="author" content="Aboze Brain">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>VCNet visualization</title>
+    <link href="{{ url_for('static', filename='css/style_first_page.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+    <!-- Load d3.js v5 -->
+  </head>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+<body>
+    <div class = "wrapper">
+        <header>
+        <h1 id="titre-principal"> Individual's counterfactual visualization on churn dataset</h1>
+        </header>
+    
+        <div id="right-bar">
+          <p id="choice-id">Visualize counterfactual</p>
+          <button type="button" onclick="window.location.href='/counterfactual';">Go to visualization</button>
+        </div>
+  
+        <div id = graph-container>
+          <div id = "header-container">
+              <div id="model-display">
+                <div id="circle-class"></div>
+                <div id = "bars" ></div>
+              </div>
+          </div>
+          <!-- Div to manipulate -->
+          <div id="d3"></div>
+          <div id="text-description"></div>
+          <div id="circle-striped"></div>
+        </div>
+      </div>
+</body>
+</html>

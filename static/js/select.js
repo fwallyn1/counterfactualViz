@@ -10,38 +10,46 @@ function parseProb(prob){
   }
   return parse_prob
 }
-/* function onchange(dataset,data_info) {
+function onchange(dataset,data_info) {
+  
   /* Web page changes when switching to another individual */
 
     /* Remove old values depending on the old individual */
-    /* d3.selectAll("svg").remove();
+    d3.selectAll("svg").remove();
     d3.selectAll("#text-display p").remove()
     d3.selectAll("#text-description .description-title,ul").remove()
-    d3.select('#threshold').remove() */
+    d3.select('#threshold').remove()
     /* get new individual ID*/
-    //selectValue = d3.select('select').property('value');
-    //selectValue = Number(selectValue);
+    selectValue = d3.select('select').property('value');
+    selectValue = Number(selectValue);
+    var threshToPlot = thresholdsToPlot(dataset,selectValue)
+    var obj = {}
+    for (prob of threshToPlot){
+        obj[prob] = dataset[prob].proba_c[selectValue]
+    }
+    var thresh = dataset["0.0"].y_x[selectValue] === 1 ? Object.keys(obj).reduce((key, v) => obj[v] < obj[key] ? v : key) : Object.keys(obj).reduce((key, v) => obj[v] > obj[key] ? v : key)
     /* Construct new threshold range */
     //makeSelectThreshold(dataset,data_info)
     /* Get new prob depending on the threshold */
     //var prob = parseProb(d3.select("#threshold").property('value'))
     /* Get variables of interest */
-    /* var proba_x = dataset[prob].proba_x[selectValue];
-    var proba_c = dataset[prob].proba_c[selectValue];
-    var y_x = dataset[prob].y_x[selectValue];
-    var y_c = dataset[prob].y_c[selectValue];
-    var y_true_x = dataset[prob].y_true_x[selectValue]; */
+    var proba_x = dataset[thresh].proba_x[selectValue];
+    var proba_c = dataset[thresh].proba_c[selectValue];
+    var y_x = dataset[thresh].y_x[selectValue];
+    var y_c = dataset[thresh].y_c[selectValue];
+    var y_true_x = dataset[thresh].y_true_x[selectValue];
     /* Reconstruct the graphs and texts */
-    /* d3ChartOnlyChanges(dataset[prob],selectValue,data_info[prob]);
+    document.getElementById("button1").setAttribute("onclick",`window.location.href='/expert?id_indiv=${selectValue}'`)
+    d3ChartOnlyChanges(dataset[thresh],selectValue,data_info[thresh]);
     draw_predict_class_circle(y_x,"x",y_true_x);
     draw_predict_class_circle(y_c,"c");
     drawCircleStriped()
     draw_percent_bar(proba_x);
     draw_percent_bar(proba_c);
-    text_description(dataset[prob],selectValue);
-    drawPieChart(dataset[prob],selectValue);
-    makeSelectChanges(dataset[prob],data_info[prob]);
-};*/
+    text_description(dataset[thresh],selectValue);
+    drawPieChart(dataset[thresh],selectValue);
+    makeSelectChanges(dataset[thresh],data_info[thresh],selectValue);
+};
 
 function switchToNoChanges(dataset,data_info,id_indiv){
   /* Switch to the graph reprensenting features which don't change */
@@ -149,13 +157,12 @@ function onChangeThreshold(dataset,data_info){
     .html(y_x === 0 ? 1 : 0)
   };
 
-function makeSelect(dataset,data_info){
+function makeSelect(dataset,data_info,thresh,id_indiv){
 /*  Construct the select object in order to choose the individual to visualize*/
-var prob = dataset["0.0"].y_x[0] === 0 ? "1.0" : "0.0";
+//var prob = dataset["0.0"].y_x[0] === 0 ? "1.0" : "0.0";
+var indiv_range = d3.range([dataset[thresh].X[0].length]);
 
-/* var indiv_range = d3.range([dataset[prob].X[0].length]);
- */
-/* var select = d3.select('#right-bar')
+var select = d3.select('#right-bar')
   .append('select')
   	.attr('class','select')
     .on('change', function(){onchange(dataset,data_info)});
@@ -164,9 +171,18 @@ var options = select
   .selectAll('option')
 	.data(indiv_range).enter()
 	.append('option')
-	.text(function (d) { return d; }); */
+	.text(function (d) { return d; });
+  d3.select("select").property("value",id_indiv)
     //.attr("value",function (d) { return d; });
-makeSelectChanges(dataset[prob],data_info[prob]);
+d3.select("#right-bar")
+  .append("input")
+  .attr("id","button1")
+  .attr("type","button")
+  .attr("value", "Custom Counterfactual")
+  .attr("onclick", function(d){ var id = d3.select("select").property("value");
+  console.log(id)
+    return `window.location.href='/expert?id_indiv=${id}'`;})
+makeSelectChanges(dataset[thresh],data_info[thresh],id_indiv);
 //makeSelectThreshold(dataset,data_info);
 
 };

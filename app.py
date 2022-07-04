@@ -11,14 +11,22 @@ def index():
     """
     first page to choose individual and threshold to visualize
     """
-    return render_template('first_page.html')
+    return render_template('index.html')
+
+@app.route('/expert')
+def expert():
+    """
+    first page to choose individual and threshold to visualize
+    """
+    id_indiv = request.args.get("id_indiv")
+    return render_template('expert.html',id_indiv = id_indiv)
 
 @app.route('/counterfactual')
 def counterfactual():
     """
     ENDPOINT du contrefactuel pour un individu et un threshold
     """
-    id_indiv = request.args.get("id_indiv")
+    id_indiv = request.args.get("id_indiv") 
     threshold = request.args.get("threshold")
     return render_template('counterfactual.html',id_indiv = id_indiv,threshold = str(threshold))
 

@@ -52,6 +52,7 @@ function slice_text(string){
 //draw main graph
 
 function d3ChartNochanges(data,id_indiv,data_info){
+    console.log(id_indiv)
     var len_max = d3.max(data.col.map(d => d.length) );
     const margin = {top: 0, right: 0, bottom: 0, left: 0},
     inner_margin = {top: 20, right: 10, bottom: 8*len_max*(0.7), left: 10},
@@ -125,7 +126,6 @@ function d3ChartNochanges(data,id_indiv,data_info){
         var y_c_val = data.y_c[id_indiv];
 
         var arrow_color = y_x_val===0 ? good_col : bad_col;
-        
         if(x_val===cf_val){
             // on ajoute un rectangle
             contour.append("rect")
@@ -270,7 +270,6 @@ function d3ChartNochanges(data,id_indiv,data_info){
                     return d;
                     })
                     .attr('dy', '0.8em').attr('x', (x(col_name)+(width/n_col_changes)/2));
-    
                     // texte du contrefactuel
                     contour.append("text")
                     .attr("x",(x(col_name)+(width/n_col_changes)/2))
@@ -347,13 +346,8 @@ function d3ChartNochanges(data,id_indiv,data_info){
                         .attr("d",d3.line()([custom_line.p1,custom_line.p2]))
                         .attr("stroke","black")
                         .attr("stroke-width","2")
-                }  
-    
+                    }     
                 }
-
-
-
             }
-                  
-            };        
+        };        
             
