@@ -28,7 +28,7 @@ function thresholdsToPlot(dataset,id_indiv){
     var dominant = []
     var dominated = []
     for (let a of Object.keys(dataset)){
-        //console.log({"threshold" : a, "n_changes" : dataset[a].changes[id_indiv].n_changes,"proba_c" : dataset[a].proba_c[id_indiv],"y_x" : dataset[a].y_x[id_indiv],"y_c" : dataset[a].y_c[id_indiv]})
+        console.log({"threshold" : a, "n_changes" : dataset[a].changes[id_indiv].n_changes,"proba_c" : dataset[a].proba_c[id_indiv],"y_x" : dataset[a].y_x[id_indiv],"y_c" : dataset[a].y_c[id_indiv]})
         if (dataset[a].y_x[id_indiv] !== dataset[a].y_c[id_indiv]){
             for (let b of Object.keys(dataset)){
                 //console.log("dominant",dominant, "dominated",dominated)
@@ -37,7 +37,7 @@ function thresholdsToPlot(dataset,id_indiv){
                     var setThresholdB = {"threshold" : b, "n_changes" : dataset[b].changes[id_indiv].n_changes,"proba_c" : dataset[b].proba_c[id_indiv]}
                     
                     dom = domination(setThresholdA,setThresholdB,dataset[a].y_x[id_indiv])
-                    console.log(setThresholdA,setThresholdB,dom)
+                    //console.log(setThresholdA,setThresholdB,dom)
                     if (dom){
                         if (!(dominated.includes(dom.dominated))){
                             dominated.push(dom.dominated)

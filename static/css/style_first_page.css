@@ -19,13 +19,17 @@ header
     justify-items: center;
   }
 
-#d3
+/* #d3
 {
     overflow-x: scroll;
-    /*  height: 700px; */
+    height: 700px;
 
+} */
+
+.tick line, path
+{
+    stroke : darkgrey
 }
-
 
 body
 {

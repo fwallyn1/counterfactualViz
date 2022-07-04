@@ -20,8 +20,15 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
       .range([margin.left,width-margin.right])
     svg.append("g")
       .attr("transform", `translate(0,${height-margin.bottom})`)
-      .call(d3.axisBottom(x).ticks(d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1)));
-  
+      .call(d3.axisBottom(x)
+              .ticks(d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1))
+              .tickSize(5));
+    svg.append("g")
+    .attr("transform", `translate(0,${margin.top})`)
+    .call(d3.axisBottom(x)
+            .ticks(d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1))
+            .tickSize(height-margin.top-margin.bottom)).call(g => g.select(".domain").remove())
+                          .selectAll("text").remove();
     // Add Y axis
     var y = d3.scaleLinear()
       .domain([0, 1])
@@ -29,6 +36,12 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
     svg.append("g")
       .attr("transform", `translate(${margin.left},0)`)
       .call(d3.axisLeft(y));
+    
+      svg.append("g")
+      .attr("transform", `translate(${width - margin.right},0)`)
+      .call(d3.axisLeft(y).tickSize(width-margin.left-margin.right))
+      .call(g => g.select(".domain").remove())
+      .selectAll("text").remove();
 
     //console.log(thresholds)
     var pointsToPlot = thresholds.map(x => [dataset[x].proba_c[id_indiv],dataset[x].changes[id_indiv].n_changes,x])
@@ -46,18 +59,22 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
         .attr("r", 6)
         .style("fill", color)
         .on("mouseover",function(d){svg.append("line")
+                                      .attr("class","dot-line")
                                       .attr("x1",x(0))
                                       .attr("x2",x(d[1]))
                                       .attr("y1",y(d[0]))
                                       .attr("y2",y(d[0]))
-                                      .attr("stroke","black");
+                                      .attr("stroke","black")
+                                      .attr("stroke-width",2);
                                     svg.append("line")
+                                    .attr("class","dot-line")
                                       .attr("x1",x(d[1]))
                                       .attr("x2",x(d[1]))
                                       .attr("y1",y(0))
                                       .attr("y2",y(d[0]))
-                                      .attr("stroke","black");})
-      .on("mouseout",function(d){d3.selectAll("#d3 line").remove()})
+                                      .attr("stroke","black")
+                                      .attr("stroke-width",2);})
+      .on("mouseout",function(d){d3.selectAll("#d3 .dot-line").remove()})
         .append("title")
         .text(function(d){return `Sparcity: ${d[1]}, Score of counterfactual: ${Math.round(d[0]*1000)/1000}`;})
         .attr("font-size",10)
