@@ -1,0 +1,39 @@
+header 
+{
+    grid-column: 1 / -1;
+    grid-row : 1/-1;
+    width:100%;
+    text-align: center;
+    background-color: darkgray;
+}
+#titre-principal
+{   
+    width:auto;
+    text-align: center;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-gap: 10px;
+    justify-items: center;
+  }
+
+#right-bar
+{   
+    grid-column: 1;
+    grid-row: 2;
+    width: auto;  
+    height: 100%; 
+    margin: auto;  
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    text-justify: center;
+    justify-self: center;
+}
+
+#graph-desc
+{
+    display : flex;
+}

@@ -39,7 +39,7 @@ function onchange(dataset,data_info) {
     var y_c = dataset[thresh].y_c[selectValue];
     var y_true_x = dataset[thresh].y_true_x[selectValue];
     /* Reconstruct the graphs and texts */
-    document.getElementById("button1").setAttribute("onclick",`window.location.href='/expert?id_indiv=${selectValue}'`)
+    document.getElementById("button-expert").setAttribute("onclick",`window.location.href='/expert?id_indiv=${selectValue}'`)
     d3ChartOnlyChanges(dataset[thresh],selectValue,data_info[thresh]);
     draw_predict_class_circle(y_x,"x",y_true_x);
     draw_predict_class_circle(y_c,"c");
@@ -162,7 +162,7 @@ function makeSelect(dataset,data_info,thresh,id_indiv){
 //var prob = dataset["0.0"].y_x[0] === 0 ? "1.0" : "0.0";
 var indiv_range = d3.range([dataset[thresh].X[0].length]);
 
-var select = d3.select('#right-bar')
+var select = d3.select('#choose-indiv')
   .append('select')
   	.attr('class','select')
     .on('change', function(){onchange(dataset,data_info)});
@@ -174,14 +174,19 @@ var options = select
 	.text(function (d) { return d; });
   d3.select("select").property("value",id_indiv)
     //.attr("value",function (d) { return d; });
-d3.select("#right-bar")
+/* d3.select("#right-bar")
   .append("input")
   .attr("id","button1")
   .attr("type","button")
   .attr("value", "Custom Counterfactual")
-  .attr("onclick", function(d){ var id = d3.select("select").property("value");
-  console.log(id)
-    return `window.location.href='/expert?id_indiv=${id}'`;})
+  .attr("onclick", function(d){var id = d3.select("select").property("value");
+    return `window.location.href='/expert?id_indiv=${id}'`;}) */
+    d3.select("#choose-other-counterfactual")
+      .append("p")
+      .attr("id","button-expert")
+      .text("Click to choose other counterfactuals")
+      .attr("onclick", function(d){var id = d3.select("select").property("value");
+        return `window.location.href='/expert?id_indiv=${id}'`;}) 
 makeSelectChanges(dataset[thresh],data_info[thresh],id_indiv);
 //makeSelectThreshold(dataset,data_info);
 

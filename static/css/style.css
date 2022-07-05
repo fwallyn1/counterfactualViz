@@ -14,7 +14,7 @@ header
 
 .wrapper {
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 10% 90%;
     grid-gap: 10px;
     justify-items: center;
   }
@@ -64,7 +64,12 @@ background-color: rgba(207,208,210,.2);
     text-justify: center;
     justify-self: center;
 }
-
+#rigth-bar-content
+{   display : flex;
+    flex-direction: column;
+    height: 50%;
+    justify-content: space-around;
+}
 #model-display
 {
     display:flex;
@@ -101,3 +106,21 @@ background-color: rgba(207,208,210,.2);
     justify-content: space-around;
 }
 
+#home-button
+{
+    grid-column: 1 ;
+    grid-row : 1;
+}
+
+#home-button img
+{
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+#button-expert
+{
+    background-color: rgb(69, 66, 66);
+    color : whitesmoke;
+    cursor : pointer;
+}

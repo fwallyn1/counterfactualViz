@@ -43,8 +43,14 @@
               </div>
           </div>
           <!-- Div to manipulate -->
-          <div id="d3"></div>
-          <div id="text-description"></div>
+          <div id = "graph-desc">
+            <div id="d3"></div>
+            <div id="text-description">
+              <p><strong>Score: </strong> Output of the model for the counterfactual. Score nears to 1 implies that the model outputs that the counterfactual is likely to be a churner</p>
+              <p><strong>Sparcity: </strong> Number of features which have to change from real data to the counterfactual. </p>
+            </div>
+          </div>
+          
           <div id="circle-striped"></div>
         </div>
       </div>

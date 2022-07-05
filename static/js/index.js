@@ -77,6 +77,13 @@ function run(datasets) {
     var image = new Image();
     image.src = url;
     document.getElementById('fleche').appendChild(image)
+    var url2 = 'static/images/bouton_home.png';
+    var image2 = new Image();
+    image2.src = url2;
+    document.getElementById('home-button').appendChild(image2)
+    document.getElementById("home-button").onclick = function () {
+        location.href = "/";
+    };
     //makeSelectChanges(dataset[thresh],data_info[thresh],indiv);
     //makeSelectThreshold(dataset,data_info)
 };
