@@ -11,5 +11,12 @@ function run(datasets) {
     makeSelectFirstPage(dataset,data_info,id_indiv);
     var  thresholds = thresholdsToPlot(dataset,id_indiv);
     drawScatterPlot(dataset,thresholds,id_indiv);
+    var url2 = 'static/images/bouton_home.png';
+    var image2 = new Image();
+    image2.src = url2;
+    document.getElementById('home-button').appendChild(image2)
+    document.getElementById("home-button").onclick = function () {
+        location.href = "/";
+    };
 }
 

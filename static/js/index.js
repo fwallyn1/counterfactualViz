@@ -1,10 +1,13 @@
 const urls = [DataUrl],
 indiv = id_indiv !== "None" ? id_indiv : 0,
-thresh = threshold
+thresh = threshold,
+desc = description;
 Promise.all(urls.map(url => d3.json(url))).then(run);
 function run(datasets) {
+    console.log(desc)
     var dataset = datasets[0]
     var data_info = {};
+    console.log(dataset)
     for (prob of Object.keys(dataset)){
         data_info[prob] = []
         for (let id_col of d3.range(0,dataset[prob].col.length)){
@@ -52,9 +55,7 @@ function run(datasets) {
         for (prob of threshToPlot){
             obj[prob] = dataset[prob].proba_c[indiv]
         }
-        console.log(obj)
         var thresh = dataset["0.0"].y_x[indiv] === 1 ? Object.keys(obj).reduce((key, v) => obj[v] < obj[key] ? v : key) : Object.keys(obj).reduce((key, v) => obj[v] > obj[key] ? v : key)
-        console.log(thresh)
     }
     else{
         var thresh = threshold;
@@ -63,7 +64,7 @@ function run(datasets) {
     .html("Threshold")
     //var prob = dataset["0.0"].y_x[indiv] === 0 ? "1.0" : "0.0";
     console.log(threshold)
-    d3ChartOnlyChanges(dataset[thresh],indiv,data_info[thresh]);
+    d3ChartOnlyChanges(dataset[thresh],indiv,data_info[thresh],description);
     drawCircleStriped();
     draw_predict_class_circle(dataset[thresh].y_x[indiv],"x",dataset[thresh].y_true_x[indiv]);
     draw_predict_class_circle(dataset[thresh].y_c[indiv],"c");

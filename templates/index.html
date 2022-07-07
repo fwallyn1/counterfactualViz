@@ -6,33 +6,73 @@
     <meta name="author" content="Aboze Brain">
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>VCNet visualization</title>
-    <link href="{{ url_for('static', filename='css/style_first_page.css') }}" rel="stylesheet">
-    <link rel="shortcut icon" href="#">
+    <link href="{{ url_for('static', filename='css/style_index.css') }}" rel="stylesheet">
+    <lnk rel="shortcut icon" href="#">
     <!-- Load d3.js v5 -->
   </head>
   <script src="https://d3js.org/d3.v5.min.js"></script>
 <body>
     <div class = "wrapper">
         <header>
-        <h1 id="titre-principal"> Individual's counterfactual visualization on churn dataset</h1>
+        <h1 id="titre-principal"> Counterfactual generation with VCNet on churn dataset </h1>
         </header>
     
         <div id="right-bar">
-          <p id="choice-id">Visualize counterfactual</p>
-          <button type="button" onclick="window.location.href='/counterfactual';">Go to visualization</button>
+          <p id="choice-id">Click to visualize counterfactuals <br> on churn dataset</p>
+          <input type="button" onclick="window.location.href='/counterfactual';" value="Go to visualization"></input>
         </div>
-  
-        <div id = graph-container>
-          <div id = "header-container">
-              <div id="model-display">
-                <div id="circle-class"></div>
-                <div id = "bars" ></div>
-              </div>
+        <div id = "main">
+          <div id = "VCNet-abstract">
+            <h2>VCNet: What is it ?</h2>
+            <p>
+            Counterfactual explanation is a common class of methods to make local explanations 
+            of machine learning decisions. For a given instance, these methods aim to find the 
+            smallest modification of feature values that changes the predicted decision made by a machine learning
+            model. One of the challenges of counterfactual explanation is the efficient generation of realistic 
+            counterfactuals. To address this challenge, we propose VCNet – Variational Counter Net – a model 
+            architecture that combines a predictor and a counterfactual generator that are jointly trained,
+            for regression or classification tasks. Once fitted, VCNet is able to both generate predictions, 
+            and to generate counterfactual explanations without having to solve another minimisation problem.
+          </p>
           </div>
-          <!-- Div to manipulate -->
-          <div id="d3"></div>
-          <div id="text-description"></div>
-          <div id="circle-striped"></div>
+          <div id = "context">
+            <div id="context-header">
+              <h2> Application on churn dataset: some context</h2> 
+                <p>The Telco customer churn data contains information about a fictional telco company that provided 
+                  home phone and Internet services to 7043 customers in California in Q3. It indicates which customers 
+                  have left, stayed, or signed up for their service. Multiple important demographics are included for 
+                  each customer.
+                </p>
+            </div>
+            <h3>Features used to predict churn</h3>
+            <div id = "context-main">
+              <div id = "demographics">
+                <h4>1) Demographics</h4>
+                <p><strong>gender: </strong>The customer’s gender: Male, Female</p>
+                <p><strong>SeniorCitizen: </strong>Indicates if the customer is 65 or older: Yes, No</p>
+                <p><strong>Partner: </strong>Indicates if the customer has a partner or not: Yes, No</p>
+                <p><strong>Dependents: </strong> Indicates if the customer lives with any dependents: Yes, No. Dependents could be children, parents, grandparents, etc.</p>
+              </div>
+              <div id="services">
+                <h4>2) Services</h4>
+                <p><strong>Tenure: </strong>Indicates the total amount of months that the customer has been with the company by the end of the quarter</p>
+                <p><strong>MonthlyCharges: </strong>Indicates the customer’s current total monthly charge for all their services from the company.</p>
+                <p><strong>TotalCharges: </strong>Indicates the customer’s total charges, calculated to the end of the quarter specified above.</p>
+                <p><strong>PhoneService: </strong> Indicates if the customer subscribes to home phone service with the company: Yes, No</p>
+                <p><strong>MultipleLines: </strong> Indicates if the customer subscribes to multiple telephone lines with the company: Yes, No</p>
+                <p><strong>InternetService: </strong>Indicates if the customer subscribes to Internet service with the company: No, DSL, Fiber Optic, Cable.</p>
+                <p><strong>OnlineSecurity: </strong>Indicates if the customer subscribes to an additional online security service provided by the company: Yes, No</p>
+                <p><strong>DeviceProtection: </strong> Indicates if the customer subscribes to an additional device protection plan for their Internet equipment provided by the company: Yes, No</p>
+                <p><strong>OnlineBackup: </strong>Indicates if the customer subscribes to an additional online backup service provided by the company: Yes, No</p>
+                <p><strong>TechSupport: </strong>Indicates if the customer subscribes to an additional technical support plan from the company with reduced wait times: Yes, No</p>
+                <p><strong>StreamingTV: </strong>Indicates if the customer uses their Internet service to stream television programing from a third party provider: Yes, No. The company does not charge an additional fee for this service.</p>
+                <p><strong>StreamingMovies: </strong>Indicates if the customer uses their Internet service to stream movies from a third party provider: Yes, No. The company does not charge an additional fee for this service.</p>
+                <p><strong>Contract: </strong>Indicates the customer’s current contract type: Month-to-Month, One Year, Two Year.</p>
+                <p><strong>PaperlessBilling: </strong>Indicates if the customer has chosen paperless billing: Yes, No</p>
+                <p><strong>PaymentMethod: </strong>Indicates how the customer pays their bill: Bank Withdrawal, Credit Card, Mailed Check</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 </body>

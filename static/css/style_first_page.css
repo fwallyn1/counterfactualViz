@@ -105,3 +105,15 @@ background-color: rgba(207,208,210,.2);
     justify-content: space-around;
 }
 
+#home-button
+{
+    grid-column: 1 ;
+    grid-row : 1;
+}
+
+#home-button img
+{
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}

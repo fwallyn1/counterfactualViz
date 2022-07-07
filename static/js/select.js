@@ -40,7 +40,7 @@ function onchange(dataset,data_info) {
     var y_true_x = dataset[thresh].y_true_x[selectValue];
     /* Reconstruct the graphs and texts */
     document.getElementById("button-expert").setAttribute("onclick",`window.location.href='/expert?id_indiv=${selectValue}'`)
-    d3ChartOnlyChanges(dataset[thresh],selectValue,data_info[thresh]);
+    d3ChartOnlyChanges(dataset[thresh],selectValue,data_info[thresh],description);
     draw_predict_class_circle(y_x,"x",y_true_x);
     draw_predict_class_circle(y_c,"c");
     drawCircleStriped()
@@ -51,23 +51,23 @@ function onchange(dataset,data_info) {
     makeSelectChanges(dataset[thresh],data_info[thresh],selectValue);
 };
 
-function switchToNoChanges(dataset,data_info,id_indiv){
+function switchToNoChanges(dataset,data_info,id_indiv,description){
   /* Switch to the graph reprensenting features which don't change */
     d3.select("#d3 svg").remove();
-    d3ChartNochanges(dataset,id_indiv,data_info);
-    makeSelectChanges(dataset,data_info,id_indiv);
+    d3ChartNochanges(dataset,id_indiv,data_info,description);
+    makeSelectChanges(dataset,data_info,id_indiv,description);
     d3.select("#pop_text").remove()
 }
 
-function switchToOnlyChanges(dataset,data_info,id_indiv){
+function switchToOnlyChanges(dataset,data_info,id_indiv,description){
   /* Switch to the graph reprensenting features which don't change */
   d3.select("#d3 svg").remove();
-  d3ChartOnlyChanges(dataset,id_indiv,data_info);
-  makeSelectChanges(dataset,data_info,id_indiv);
+  d3ChartOnlyChanges(dataset,id_indiv,data_info,description);
+  makeSelectChanges(dataset,data_info,id_indiv,description);
   d3.select("#pop_text").remove()
 }
 
-function makeSelectChanges(dataset,data_info,id_indiv){
+function makeSelectChanges(dataset,data_info,id_indiv,description){
   /* Defines "on" properties of the pie chart and his legend */
   d3.selectAll(".changes")
   .on(
@@ -87,7 +87,7 @@ function makeSelectChanges(dataset,data_info,id_indiv){
                   .style("stroke-width", "2px"); 
     d3.select("#pop_text").remove()
   })
-  .on("click",function(){switchToOnlyChanges(dataset,data_info,id_indiv);})
+  .on("click",function(){switchToOnlyChanges(dataset,data_info,id_indiv,description);})
   
   d3.selectAll(".no_changes")
   .on(
@@ -107,7 +107,7 @@ function makeSelectChanges(dataset,data_info,id_indiv){
                   .style("stroke-width", "2px"); 
     d3.select("#pop_text").remove()
   })
-  .on("click",function(){switchToNoChanges(dataset,data_info,id_indiv);})
+  .on("click",function(){switchToNoChanges(dataset,data_info,id_indiv,description);})
   };
 
 function onChangeThreshold(dataset,data_info){
@@ -187,8 +187,7 @@ var options = select
       .text("Click to choose other counterfactuals")
       .attr("onclick", function(d){var id = d3.select("select").property("value");
         return `window.location.href='/expert?id_indiv=${id}'`;}) 
-makeSelectChanges(dataset[thresh],data_info[thresh],id_indiv);
+makeSelectChanges(dataset[thresh],data_info[thresh],id_indiv,description);
 //makeSelectThreshold(dataset,data_info);
-
 };
 

@@ -32,8 +32,87 @@ header
     text-justify: center;
     justify-self: center;
 }
-
-#graph-desc
+#choice-id
 {
-    display : flex;
+    text-align: start;
+}
+input[type=button]{
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+#main
+{
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#VCNet-abstract
+{    background-color: rgb(213, 210, 210);
+    padding: 5px 10px 5px 10px;
+}
+
+p
+{
+    font-size: 1.1em;
+    text-align: justify;
+}
+
+#VCNet-abstract p 
+{
+    text-align: justify;
+    font-size: 1.1em;
+}
+
+#context
+{   
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#context p 
+{
+    text-align: justify;
+    font-size: 1.1em;
+}
+
+#context-header
+{
+    background-color: rgb(213, 210, 210);
+    padding: 5px 10px 5px 10px;
+}
+#context-main
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+#demographics
+{
+    background-color: rgb(213, 210, 210);
+    padding: 5px 10px 5px 10px;
+    margin : 5px 10px 5px 0px;
+    height: fit-content;
+}
+#services
+{
+    background-color: rgb(213, 210, 210);
+    padding: 5px 10px 5px 10px;
+    margin : 5px 0px 5px 10px;
+}
+h3{
+    font-size:1.4em;
+    background-color: rgb(213, 210, 210);
+    margin-bottom: auto;
+    text-align: center;
+}
+
+h4{
+    font-size: 1.3em;
+    
 }

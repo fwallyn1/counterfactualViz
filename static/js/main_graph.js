@@ -1,4 +1,3 @@
-
 // Setting the default group
 //const group = "All";
 
@@ -51,7 +50,7 @@ function slice_text(string){
 
 //draw main graph
 
-function d3ChartNochanges(data,id_indiv,data_info){
+function d3ChartNochanges(data,id_indiv,data_info,description){
     console.log(id_indiv)
     var len_max = d3.max(data.col.map(d => d.length) );
     const margin = {top: 0, right: 0, bottom: 0, left: 0},
@@ -106,8 +105,12 @@ function d3ChartNochanges(data,id_indiv,data_info){
       .attr("dy", ".15em")
       .attr("transform", "translate(20,0)rotate(-45)")
       .style("font-weight","bold")
-        .style("font-size", "12px");
-
+      .style("font-size", "12px")
+      xAxis.selectAll("text")
+      .append("title")
+      .text(function(d){return description[d]});
+    /* xAxis.selectAll("text")
+    .append("title",function(d){console.log(description);return description[d]}); */
     
     // contour du graphe
     contour = svg.append("g")
@@ -150,8 +153,9 @@ function d3ChartNochanges(data,id_indiv,data_info){
                 .text(function(d) {
                 return d;
                 })
-                .attr('dy', '0.8em').attr('x', (x(col_name)+(width/n_col_no_changes)/2));
-                            }
+                .attr('dy', '0.8em').attr('x', (x(col_name)+(width/n_col_no_changes)/2))
+                .attr("title",data);
+                }
             else{
                 var transf_x = (x_val - data_info[id_col][0])/(data_info[id_col][1] - data_info[id_col][0]);
                 var transf_cf = (cf_val - data_info[id_col][0])/(data_info[id_col][1] - data_info[id_col][0]);
@@ -171,7 +175,7 @@ function d3ChartNochanges(data,id_indiv,data_info){
     } ;
 
 
-    function d3ChartOnlyChanges(data,id_indiv,data_info){
+    function d3ChartOnlyChanges(data,id_indiv,data_info,description){
         var len_max = d3.max(data.col.map(d => d.length) );
         const margin = {top: 0, right: 0, bottom: 0, left: 0},
         inner_margin = {top: 20, right: 10, bottom: 8*len_max*(0.7), left: 10},
@@ -224,7 +228,12 @@ function d3ChartNochanges(data,id_indiv,data_info){
           .attr("dy", ".15em")
           .attr("transform", "translate(20,0)rotate(-45)")
           .style("font-weight","bold")
-            .style("font-size", "12px");
+          .style("font-size", "12px");
+
+        xAxis.selectAll("text")
+        .append("title")
+        .text(function(d){return description[d]});
+          
     
         
         // contour du graphe
@@ -238,6 +247,7 @@ function d3ChartNochanges(data,id_indiv,data_info){
             var cf_val = data.cf[id_col][id_indiv]
             // valeur pour le nom de la colonne
             var col_name = data.col[id_col]
+            console.log(description[col_name]);
             //y_x val
             var y_x_val = data.y_x[id_indiv];
             //y_c val
