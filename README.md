@@ -5,7 +5,13 @@
 ```
 pip install -r requirements.txt
 ```
-Accéder  la branche finale
+
+Check that you're in the branch $expert_mode$
+```
+git branch
+```
+
+If expert_mode is not the current branch, switch to $expert_mode$ :
 ```
 git checkout expert_mode
 ```
