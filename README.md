@@ -11,7 +11,7 @@ Check that you're in the branch $expert_mode$
 git branch
 ```
 
-If expert_mode is not the current branch, switch to $expert_mode$ :
+If expert_mode is not the current branch, switch to `expert_mode` :
 ```
 git checkout expert_mode
 ```
@@ -22,7 +22,6 @@ git checkout expert_mode
 python app.py
 ```
 
-## To change example datasets : 
+Then copy the url `http://localhost:8000` in your browser.
 
-input :  data_churn_probs.json in DATASET_PATH constant in $app.py$
 
