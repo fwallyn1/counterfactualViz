@@ -41,9 +41,6 @@ def get_data():
 
 
 if __name__ == '__main__':
-    with open(DESCRIPTION_PATH, 'r') as f:
-        fileData = json.load(f)
-    print(fileData)
     app.run(host="localhost",debug=True,port=8000)
 
 

@@ -1,7 +1,7 @@
 function drawScatterPlot(dataset,thresholds,id_indiv=0){
-    var margin = {top: 10, right: 50, bottom: 50, left: 60},
-    width = 460 ,
-    height = 400 ;
+    var margin = {top: 100, right: 200, bottom: 50, left: 60},
+    width = 960 ,
+    height = 600 ;
 
     var good_col = "#d95f02",
         bad_col = "#1b9e77";
@@ -19,11 +19,13 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
       .domain([0, d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1)])
       .range([margin.left,width-margin.right])
     svg.append("g")
+      .attr("class","axis")
       .attr("transform", `translate(0,${height-margin.bottom})`)
       .call(d3.axisBottom(x)
               .ticks(d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1))
               .tickSize(5));
     svg.append("g")
+    .attr("class","axis")
     .attr("transform", `translate(0,${margin.top})`)
     .call(d3.axisBottom(x)
             .ticks(d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1))
@@ -34,10 +36,12 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
       .domain([0, 1])
       .range([height-margin.bottom, margin.top]);
     svg.append("g")
+      .attr("class","axis")
       .attr("transform", `translate(${margin.left},0)`)
       .call(d3.axisLeft(y));
     
       svg.append("g")
+      .attr("class","axis")
       .attr("transform", `translate(${width - margin.right},0)`)
       .call(d3.axisLeft(y).tickSize(width-margin.left-margin.right))
       .call(g => g.select(".domain").remove())
@@ -56,7 +60,7 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
         .append("circle")
         .attr("cx", function (d) { return x(d[1]); } )
         .attr("cy", function (d) { return y(d[0]); } )
-        .attr("r", 6)
+        .attr("r", 8)
         .style("fill", color)
         .on("mouseover",function(d){svg.append("line")
                                       .attr("class","dot-line")
@@ -83,7 +87,8 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
     .attr("text-anchor", "end")
     .attr("x", width-margin.right)
     .attr("y", height -margin.bottom+30)
-    .text("Sparcity");
+    .text("Sparcity")
+    .style("font-size","1.2em");
 
     // Y axis label:
     svg.append("g")
@@ -93,4 +98,13 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
     .attr("y", margin.left-30)
     .attr("x", -margin.top)
     .text("Score")
+    .style("font-size","1.2em");
+
+  svg.append("g")
+    .append("text")
+    .attr("x",margin.left)
+    .attr("y",margin.top-20)
+    .text("Proposal of counterfactuals according to their output churn score and their sparcity")
+    .style("font-size","1.3em")
+    .style("font-weight","bold")
 }

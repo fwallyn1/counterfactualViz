@@ -1,6 +1,6 @@
 
 function draw_percent_bar(result) {
-    
+    /* Construct the percentage bar in function of proba */
     var bar_width = 250,
         bar_height = 20;
     
@@ -50,7 +50,9 @@ function draw_percent_bar(result) {
         .attr("ry",10)
         .style("stroke","black")
         .style("stroke-width",1.3)
-        .style("fill","url(#lin_gradient)");
+        .style("fill","url(#lin_gradient)")
+        .append("title")
+        .text("Score of the model");
     
     // Drawing middle marker 
     
