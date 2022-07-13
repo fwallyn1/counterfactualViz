@@ -23,7 +23,10 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
       .attr("transform", `translate(0,${height-margin.bottom})`)
       .call(d3.axisBottom(x)
               .ticks(d3.max(Object.values(dataset), d=> d.changes[id_indiv].n_changes +1))
-              .tickSize(5));
+              .tickSize(5))
+      .selectAll("text")
+      .style("font-size",14);
+      
     svg.append("g")
     .attr("class","axis")
     .attr("transform", `translate(0,${margin.top})`)
@@ -38,8 +41,9 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
     svg.append("g")
       .attr("class","axis")
       .attr("transform", `translate(${margin.left},0)`)
-      .call(d3.axisLeft(y));
-    
+      .call(d3.axisLeft(y))
+      .selectAll("text")
+      .style("font-size",14);
       svg.append("g")
       .attr("class","axis")
       .attr("transform", `translate(${width - margin.right},0)`)
@@ -86,7 +90,7 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
     svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", width-margin.right)
-    .attr("y", height -margin.bottom+30)
+    .attr("y", height -margin.bottom+35)
     .text("Sparcity")
     .style("font-size","1.2em");
 
@@ -95,7 +99,7 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
     .append("text")
     .attr("text-anchor", "end")
     .attr("transform","rotate(-90)")
-    .attr("y", margin.left-30)
+    .attr("y", margin.left-35)
     .attr("x", -margin.top)
     .text("Score")
     .style("font-size","1.2em");
