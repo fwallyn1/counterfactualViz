@@ -73,7 +73,7 @@ function run(datasets) {
     drawPieChart(dataset[thresh],indiv);
     //draw_text_percent(dataset.proba_x[0],dataset.proba_c[0]);
     text_description(dataset[thresh],indiv);
-    makeSelect(dataset,data_info,thresh,indiv);
+    makeSelect(dataset,data_info,thresh,indiv,description);
     var url = 'static/images/fleche.png';
     var image = new Image();
     image.src = url;
