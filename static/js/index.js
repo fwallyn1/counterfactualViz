@@ -63,16 +63,21 @@ function run(datasets) {
     d3.select("#threshold-text")
     .html("Threshold")
     //var prob = dataset["0.0"].y_x[indiv] === 0 ? "1.0" : "0.0";
-    console.log(threshold)
-    d3ChartOnlyChanges(dataset[thresh],indiv,data_info[thresh],description);
+    console.log(threshold);
+    var data_thresh = dataset[thresh]
+    indivValues = getIndivValues(data_thresh,indiv);
+    var col_names_changes = data_thresh.changes[indiv].col_names_changes;
+    var n_col_changes = data_thresh.changes[indiv].n_changes;
+    var len_max = d3.max(data_thresh.col.map(d => d.length) )
+    d3ChartOnlyChanges(col_names_changes,n_col_changes,len_max,indivValues,data_info[thresh],description);
     drawCircleStriped();
-    draw_predict_class_circle(dataset[thresh].y_x[indiv],"x",dataset[thresh].y_true_x[indiv]);
-    draw_predict_class_circle(dataset[thresh].y_c[indiv],"c");
-    draw_percent_bar(dataset[thresh].proba_x[indiv]);
-    draw_percent_bar(dataset[thresh].proba_c[indiv]);
-    drawPieChart(dataset[thresh],indiv);
+    draw_predict_class_circle(data_thresh.y_x[indiv],"x",data_thresh.y_true_x[indiv]);
+    draw_predict_class_circle(data_thresh.y_c[indiv],"c");
+    draw_percent_bar(data_thresh.proba_x[indiv]);
+    draw_percent_bar(data_thresh.proba_c[indiv]);
+    drawPieChart(data_thresh,indiv);
     //draw_text_percent(dataset.proba_x[0],dataset.proba_c[0]);
-    text_description(dataset[thresh],indiv);
+    text_description(data_thresh,indiv);
     makeSelect(dataset,data_info,thresh,indiv,description);
     var url = 'static/images/fleche.png';
     var image = new Image();

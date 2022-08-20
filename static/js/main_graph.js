@@ -48,16 +48,34 @@ function slice_text(string){
     return(finalSliceString)
     }
 
+function getIndivValues(data,id_indiv){
+    console.log("DATA",data)
+    let indivValues = [];
+    for (let id_col of d3.range(0,data.col.length)){
+        let colVal = {};
+        // valeur pour l'exemple'
+        colVal["x_val"] = data.X[id_col][id_indiv];
+        // valeur pour le contrefactuel
+        colVal["cf_val"] = data.cf[id_col][id_indiv];
+        // valeur pour le nom de la colonne
+        colVal["col_name"] = data.col[id_col];
+        //y_x val
+        colVal["y_x_val"] = data.y_x[id_indiv];
+        //y_c val
+        colVal["y_c_val"] = data.y_c[id_indiv];
+        indivValues.push(colVal);
+    }
+    return(indivValues)
+}
 //draw main graph
 
-function d3ChartNochanges(data,id_indiv,data_info,description){
-    console.log(id_indiv)
-    var len_max = d3.max(data.col.map(d => d.length) );
+function d3ChartNochanges(col_names_no_change,n_col_no_changes,len_max,indivValues,data_info,description){
+    console.log(id_indiv);
     const margin = {top: 0, right: 0, bottom: 0, left: 0},
     inner_margin = {top: 20, right: 10, bottom: 8*len_max*(0.7), left: 10},
     //base rectangle width
     rect_width = 100,
-    n_col_no_changes = data.changes[id_indiv].n_no_changes,
+    //n_col_no_changes = data.changes[id_indiv].n_no_changes,
 
     // width & height of svg in function of feature name length
     width = n_col_no_changes * rect_width + inner_margin.left + inner_margin.right + 14*len_max*0.7,
@@ -71,8 +89,6 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
     //colors used for arrows
     var good_col = "#d95f02",
         bad_col = "#1b9e77";
-    // array of feature names
-    var col = data.col
     // construct svg
     var svg = d3.select('#d3')
     .style("height",height+60)
@@ -86,7 +102,7 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
     var xAxis = svg.append("g");
 
     var x = d3.scaleBand() // axe catégoriel
-                .domain(data.changes[id_indiv].col_names_no_changes) // le domaine est le nom des variables
+                .domain(col_names_no_change) // le domaine est le nom des variables
                 .rangeRound([inner_margin.left, width-inner_margin.right]);
 
     // axe des valeurs (hauteur)
@@ -116,17 +132,17 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
     contour = svg.append("g")
 
     // on parcourt les colonnes
-    for (let id_col of d3.range(0,data.col.length)){
+    for (let id_col of d3.range(0,indivValues.length)){
         // valeur pour l'exemple'
-        var x_val = data.X[id_col][id_indiv]
+        var x_val = indivValues[id_col].x_val
         // valeur pour le contrefactuel
-        var cf_val = data.cf[id_col][id_indiv]
+        var cf_val = indivValues[id_col].cf_val
         // valeur pour le nom de la colonne
-        var col_name = data.col[id_col]
+        var col_name = indivValues[id_col].col_name
         //y_x val
-        var y_x_val = data.y_x[id_indiv];
+        var y_x_val = indivValues[id_col].y_x_val;
         //y_c val
-        var y_c_val = data.y_c[id_indiv];
+        var y_c_val = indivValues[id_col].y_c_val;
 
         var arrow_color = y_x_val===0 ? good_col : bad_col;
         if(x_val===cf_val){
@@ -154,7 +170,7 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
                 return d;
                 })
                 .attr('dy', '0.8em').attr('x', (x(col_name)+(width/n_col_no_changes)/2))
-                .attr("title",data);
+                //.attr("title",data);
                 }
             else{
                 var transf_x = (x_val - data_info[id_col][0])/(data_info[id_col][1] - data_info[id_col][0]);
@@ -175,13 +191,12 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
     } ;
 
 
-    function d3ChartOnlyChanges(data,id_indiv,data_info,description){
-        var len_max = d3.max(data.col.map(d => d.length) );
+    function d3ChartOnlyChanges(col_names_changes,n_col_changes,len_max,indivValues,data_info,description){
         const margin = {top: 0, right: 0, bottom: 0, left: 0},
         inner_margin = {top: 20, right: 10, bottom: 8*len_max*(0.7), left: 10},
         //base rectangle width
         rect_width = 100,
-        n_col_changes = data.changes[id_indiv].n_changes,
+        //n_col_changes = data.changes[id_indiv].n_changes,
         // width & height of svg in function of feature name length
         width = n_col_changes * rect_width + inner_margin.left + inner_margin.right + 14*len_max*0.7,
         height = 400 - margin.top - margin.bottom + 8*len_max*(0.7),
@@ -194,8 +209,6 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
         //colors used for arrows
         var good_col = "#d95f02",
             bad_col = "#1b9e77";
-        // array of feature names
-        var col = data.col
         // construct svg
         var svg = d3.select('#d3')
         .style("height",height+60)
@@ -209,7 +222,7 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
         var xAxis = svg.append("g");
         
         var x = d3.scaleBand() // axe catégoriel
-                    .domain(data.changes[id_indiv].col_names_changes) // le domaine est le nom des variables
+                    .domain(col_names_changes) // le domaine est le nom des variables
                     .rangeRound([inner_margin.left, width-inner_margin.right]);
     
         // axe des valeurs (hauteur)
@@ -240,18 +253,17 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
         contour = svg.append("g")
     
         // on parcourt les colonnes
-        for (let id_col of d3.range(0,data.col.length)){
+        for (let id_col of d3.range(0,indivValues.length)){
             // valeur pour l'exemple'
-            var x_val = data.X[id_col][id_indiv]
+            var x_val = indivValues[id_col].x_val
             // valeur pour le contrefactuel
-            var cf_val = data.cf[id_col][id_indiv]
+            var cf_val = indivValues[id_col].cf_val
             // valeur pour le nom de la colonne
-            var col_name = data.col[id_col]
-            console.log(description[col_name]);
+            var col_name = indivValues[id_col].col_name
             //y_x val
-            var y_x_val = data.y_x[id_indiv];
+            var y_x_val = indivValues[id_col].y_x_val;
             //y_c val
-            var y_c_val = data.y_c[id_indiv];
+            var y_c_val = indivValues[id_col].y_c_val;
     
             var arrow_color = y_x_val===0 ? good_col : bad_col;
 
@@ -359,5 +371,4 @@ function d3ChartNochanges(data,id_indiv,data_info,description){
                     }     
                 }
             }
-        };        
-            
+        };

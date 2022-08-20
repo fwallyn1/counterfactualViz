@@ -33,28 +33,38 @@ function onchange(dataset,data_info,description) {
     /* Get new prob depending on the threshold */
     //var prob = parseProb(d3.select("#threshold").property('value'))
     /* Get variables of interest */
-    var proba_x = dataset[thresh].proba_x[selectValue];
-    var proba_c = dataset[thresh].proba_c[selectValue];
-    var y_x = dataset[thresh].y_x[selectValue];
-    var y_c = dataset[thresh].y_c[selectValue];
-    var y_true_x = dataset[thresh].y_true_x[selectValue];
+    var data_thresh = dataset[thresh];
+    console.log("DATATHRESH",data_thresh)
+    var proba_x = data_thresh.proba_x[selectValue];
+    var proba_c = data_thresh.proba_c[selectValue];
+    var y_x = data_thresh.y_x[selectValue];
+    var y_c = data_thresh.y_c[selectValue];
+    var y_true_x = data_thresh.y_true_x[selectValue];
     /* Reconstruct the graphs and texts */
     document.getElementById("button-expert").setAttribute("onclick",`window.location.href='/expert?id_indiv=${selectValue}'`)
-    d3ChartOnlyChanges(dataset[thresh],selectValue,data_info[thresh],description);
+    indivValues = getIndivValues(data_thresh,selectValue);
+    var col_names_changes = data_thresh.changes[selectValue].col_names_changes;
+    var n_col_changes = data_thresh.changes[selectValue].n_changes;
+    var len_max = d3.max(data_thresh.col.map(d => d.length) )
+    d3ChartOnlyChanges(col_names_changes,n_col_changes,len_max,indivValues,data_info[thresh],description);
     draw_predict_class_circle(y_x,"x",y_true_x);
     draw_predict_class_circle(y_c,"c");
     drawCircleStriped()
     draw_percent_bar(proba_x);
     draw_percent_bar(proba_c);
-    text_description(dataset[thresh],selectValue);
-    drawPieChart(dataset[thresh],selectValue);
-    makeSelectChanges(dataset[thresh],data_info[thresh],selectValue,description);
+    text_description(data_thresh,selectValue);
+    drawPieChart(data_thresh,selectValue);
+    makeSelectChanges(data_thresh,data_info[thresh],selectValue,description);
 };
 
 function switchToNoChanges(dataset,data_info,id_indiv,description){
   /* Switch to the graph reprensenting features which don't change */
     d3.select("#d3 svg").remove();
-    d3ChartNochanges(dataset,id_indiv,data_info,description);
+    indivValues = getIndivValues(dataset,id_indiv);
+    var col_names_no_changes = dataset.changes[id_indiv].col_names_no_changes;
+    var n_col_no_changes = dataset.changes[id_indiv].n_no_changes;
+    var len_max = d3.max(dataset.col.map(d => d.length) )
+    d3ChartNochanges(col_names_no_changes,n_col_no_changes,len_max,indivValues,data_info,description);
     makeSelectChanges(dataset,data_info,id_indiv,description);
     d3.select("#pop_text").remove()
 }
@@ -62,7 +72,11 @@ function switchToNoChanges(dataset,data_info,id_indiv,description){
 function switchToOnlyChanges(dataset,data_info,id_indiv,description){
   /* Switch to the graph reprensenting features which don't change */
   d3.select("#d3 svg").remove();
-  d3ChartOnlyChanges(dataset,id_indiv,data_info,description);
+  indivValues = getIndivValues(dataset,id_indiv);
+  var col_names_changes = dataset.changes[id_indiv].col_names_changes;
+  var n_col_changes = dataset.changes[id_indiv].n_changes;
+  var len_max = d3.max(dataset.col.map(d => d.length))
+  d3ChartOnlyChanges(col_names_changes,n_col_changes,len_max,indivValues,data_info,description);
   makeSelectChanges(dataset,data_info,id_indiv,description);
   d3.select("#pop_text").remove()
 }
@@ -127,7 +141,10 @@ function onChangeThreshold(dataset,data_info,description){
   var y_x = dataset[prob].y_x[selectValue];
   var y_c = dataset[prob].y_c[selectValue];
   var y_true_x = dataset[prob].y_true_x[selectValue];
-  d3ChartOnlyChanges(dataset[prob],selectValue,data_info[prob],description);
+  var col_names_changes = dataset.changes[selectValue].col_names_changes;
+  var n_col_changes = dataset.changes[selectValue].n_changes;
+  var len_max = d3.max(dataset.col.map(d => d.length))
+  d3ChartOnlyChanges(col_names_changes,n_col_changes,len_max,indivValues,data_info[thresh],description);
   draw_predict_class_circle(y_x,"x",y_true_x);
   draw_predict_class_circle(y_c,"c");
   drawCircleStriped();
@@ -135,7 +152,7 @@ function onChangeThreshold(dataset,data_info,description){
   draw_percent_bar(proba_c);
   text_description(dataset[prob],selectValue);
   drawPieChart(dataset[prob],selectValue);
-  makeSelectChanges(dataset[prob],data_info[prob],id_indiv,description);
+  makeSelectChanges(dataset[prob],data_info[prob],selectValue,description);
 }
 
   function makeSelectThreshold(dataset,data_info,description){
