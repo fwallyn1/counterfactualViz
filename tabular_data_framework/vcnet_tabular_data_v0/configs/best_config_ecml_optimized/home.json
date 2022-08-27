@@ -1,0 +1,13 @@
+{   "name" : "heloc",
+    "data_dir": "data/s_home.csv",
+    "lr": 0.001,
+    "batch_size": 116,
+    "epochs" : 156, 
+    "lambda_1": 0.92,
+    "lambda_2": 0.13,
+    "lambda_3": 0.0009,
+    "latent_size_share" : 314, 
+    "latent_size" : 17,
+    "mid_reduce_size" : 157
+}
+

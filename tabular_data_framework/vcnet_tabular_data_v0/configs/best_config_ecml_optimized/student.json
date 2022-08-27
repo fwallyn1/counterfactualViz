@@ -1,0 +1,12 @@
+{   "name" : "student",
+    "lr": 0.0008,
+    "batch_size": 78,
+    "lambda_1": 0.71,
+    "lambda_2": 0.14,
+    "lambda_3": 0.0001,
+    "epochs" : 76,
+    "latent_size_share" : 460,
+    "latent_size" : 28,
+    "mid_reduce_size" : 230
+}
+

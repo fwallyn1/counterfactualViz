@@ -34,7 +34,6 @@ function onchange(dataset,data_info,description) {
     //var prob = parseProb(d3.select("#threshold").property('value'))
     /* Get variables of interest */
     var data_thresh = dataset[thresh];
-    console.log("DATATHRESH",data_thresh)
     var proba_x = data_thresh.proba_x[selectValue];
     var proba_c = data_thresh.proba_c[selectValue];
     var y_x = data_thresh.y_x[selectValue];

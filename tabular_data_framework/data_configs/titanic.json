@@ -1,0 +1,35 @@
+{   "name" : "titanic",
+    "data_dir": "data/s_titanic.csv",
+    "class_size" : 2,
+    "feature_size" : 57,
+    "continous_cols": [
+        "Age",
+        "Fare"
+    ],
+    "discret_cols": [
+        "Sex",
+        "family",
+        "AgeGroup_1",
+        "AgeGroup_2",
+        "AgeGroup_3",
+        "AgeGroup_4",
+        "SibSp_0",
+        "SibSp_1",
+        "SibSp_2",
+        "SibSp_3",
+        "SibSp_4",
+        "SibSp_5",
+        "SibSp_8",
+        "Pclass_1",
+        "Pclass_2",
+        "Pclass_3",
+        "Parch_0",
+        "Parch_1",
+        "Parch_2",
+        "Parch_3",
+        "Parch_4",
+        "Parch_5",
+        "Parch_6",
+        "isAlone"
+    ]
+}

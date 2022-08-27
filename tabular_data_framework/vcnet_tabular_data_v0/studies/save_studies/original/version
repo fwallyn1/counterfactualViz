@@ -1,0 +1,4 @@
+BCE --> MSE
+Sigmoid --> Relu 
+classif layers --> less
+Seed --> not torch.manual.seed() in reparametrize !!

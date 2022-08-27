@@ -1,0 +1,13 @@
+{
+    "name": "one_causev=0.8",
+    "data_dir": "data/toy_problem/one_causev=0.8.csv",
+    "feature_size": 4,
+    "class_size": 2,
+    "continous_cols": [
+        "X1",
+        "X2",
+        "X3",
+        "X4"
+    ],
+    "discret_cols": []
+}

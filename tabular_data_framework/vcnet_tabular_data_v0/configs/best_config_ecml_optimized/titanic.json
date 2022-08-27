@@ -1,0 +1,12 @@
+{   "name" : "titanic",
+    "lr": 0.0007,
+    "batch_size": 77,
+    "lambda_1": 0.08,
+    "lambda_2": 0.22,
+    "lambda_3": 0.0004,
+    "epochs" : 79,
+    "latent_size" : 17,
+    "latent_size_share" : 408, 
+    "mid_reduce_size" : 204
+}
+

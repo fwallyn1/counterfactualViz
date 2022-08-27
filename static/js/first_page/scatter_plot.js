@@ -54,13 +54,20 @@ function drawScatterPlot(dataset,thresholds,id_indiv=0){
     //console.log(thresholds)
     var pointsToPlot = thresholds.map(x => [dataset[x].proba_c[id_indiv],dataset[x].changes[id_indiv].n_changes,x])
     console.log(pointsToPlot)
+    
+    const objectMap = (obj, fn) =>
+    Object.fromEntries(
+      Object.entries(obj).map(
+        ([k, v], i) => [k, fn(v, k, i)]
+      )
+    )
     // Add dots
     svg.append('g')
       .selectAll("dot")
       .data(pointsToPlot)
       .enter()
       .append("a")
-      .attr("xlink:href",function (d) { return `/counterfactual?id_indiv=${id_indiv}&threshold=${d[2]}`; })
+      .attr("xlink:href",function (d) { return data_from_flask ? `/custom_counterfactual?data=${JSON.stringify(objectMap(dataset, v => (({ col,X,cf,y_x,y_c,proba_x,proba_c,y_true_x}) => ({ col,X,cf,y_x,y_c,proba_x,proba_c,y_true_x }))(v)))}&threshold=${d[2]}` : `/counterfactual?id_indiv=${id_indiv}&threshold=${d[2]}`; })
         .append("circle")
         .attr("cx", function (d) { return x(d[1]); } )
         .attr("cy", function (d) { return y(d[0]); } )

@@ -70,7 +70,6 @@ function getIndivValues(data,id_indiv){
 //draw main graph
 
 function d3ChartNochanges(col_names_no_change,n_col_no_changes,len_max,indivValues,data_info,description){
-    console.log(id_indiv);
     const margin = {top: 0, right: 0, bottom: 0, left: 0},
     inner_margin = {top: 20, right: 10, bottom: 8*len_max*(0.7), left: 10},
     //base rectangle width
@@ -335,27 +334,27 @@ function d3ChartNochanges(col_names_no_change,n_col_no_changes,len_max,indivValu
                         var transf_cf = (cf_val - data_info[id_col][0])/(data_info[id_col][1] - data_info[id_col][0]);
                         contour.append("text")
                         .attr("x",(x(col_name)+(width/n_col_changes)/2))
-                        .attr("y", x_val>cf_val ? y(transf_x)-10 :  y(transf_x)+10)
+                        .attr("y", x_val>cf_val ? y(transf_x)-20 :  y(transf_x)+20)
                         .text(`${roundToTwo(x_val)}`)
                         .attr("text-anchor","middle")
                         .style("font-weight","bold");
             
                         contour.append("text")
                         .attr("x",(x(col_name)+(width/n_col_changes)/2))
-                        .attr("y", x_val>cf_val ? y(transf_cf)+10 :  y(transf_cf)-10)
+                        .attr("y", x_val>cf_val ? y(transf_cf)+20 :  y(transf_cf)-20)
                         .text(`${roundToTwo(cf_val)}`)
                         .attr("text-anchor","middle")
                         .style("font-weight","bold");
                                 
-                        var custom_arrow =   {p1 :[(x(col_name)+(width/n_col_changes)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-10],
-                                                p2 : [(x(col_name)+(width/n_col_changes)/2)-10,x_val>cf_val ? y(transf_cf)-20 : y(transf_cf)+10],
-                                                p3 : [(x(col_name)+(width/n_col_changes)/2),x_val>cf_val ? y(transf_cf)-10 : y(transf_cf)],
-                                                p4 : [(x(col_name)+(width/n_col_changes)/2)+10,x_val>cf_val ? y(transf_cf)-20 : y(transf_cf)+10],
-                                                p5 : [(x(col_name)+(width/n_col_changes)/2)+10,x_val>cf_val ? y(transf_x) : y(transf_x)-10],
-                                                p6 : [(x(col_name)+(width/n_col_changes)/2)-10, x_val>cf_val ? y(transf_x) : y(transf_x)-10]
+                        var custom_arrow =   {p1 :[(x(col_name)+(width/n_col_changes)/2)-10, x_val>cf_val ? y(transf_x)-10 : y(transf_x)],
+                                                p2 : [(x(col_name)+(width/n_col_changes)/2)-10,x_val>cf_val ? y(transf_cf)-10 : y(transf_cf)],
+                                                p3 : [(x(col_name)+(width/n_col_changes)/2),x_val>cf_val ? y(transf_cf) : y(transf_cf)-10],
+                                                p4 : [(x(col_name)+(width/n_col_changes)/2)+10,x_val>cf_val ? y(transf_cf)-10 : y(transf_cf)],
+                                                p5 : [(x(col_name)+(width/n_col_changes)/2)+10,x_val>cf_val ? y(transf_x)-10 : y(transf_x)],
+                                                p6 : [(x(col_name)+(width/n_col_changes)/2)-10, x_val>cf_val ? y(transf_x)-10 : y(transf_x)]
                         };
-                        var custom_line = {p1 :[(x(col_name)+(width/n_col_changes)/2)-15, x_val>cf_val ? y(transf_x) : y(transf_x)-10],
-                                            p2 : [(x(col_name)+(width/n_col_changes)/2)+15,x_val>cf_val ? y(transf_x) : y(transf_x)-10]};
+                        var custom_line = {p1 :[(x(col_name)+(width/n_col_changes)/2)-15, x_val>cf_val ? y(transf_x)-10 : y(transf_x)],
+                                            p2 : [(x(col_name)+(width/n_col_changes)/2)+15,x_val>cf_val ? y(transf_x)-10 : y(transf_x)]};
             
                         contour.append("path")
                         .attr('d', d3.line()([custom_arrow.p1,custom_arrow.p2,custom_arrow.p3,custom_arrow.p4,custom_arrow.p5,custom_arrow.p6]))

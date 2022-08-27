@@ -12,8 +12,9 @@
   </head>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script>
-    const DataUrl = "{{ url_for('get_data') }}";
-    id_indiv = "{{id_indiv}}"
+    const DataUrl = "{{ url_for('get_data') }}",
+    id_indiv = "{{id_indiv}}";
+    const data_from_flask = '{{data}}'=== 'None' ? null : JSON.parse('{{data | safe}}');
 </script>
 <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 <script src="{{ url_for('static', filename='js/first_page/front_pareto.js') }}"></script>

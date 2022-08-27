@@ -1,0 +1,14 @@
+{   
+    "name" : "moons" ,
+    "data_dir": "data/moons_dataset.csv",
+    "feature_size" : 2,
+    "class_size" : 2, 
+    "continous_cols": [
+        "X1",
+        "X2"
+    ],
+    "discret_cols": []
+    
+}
+
+

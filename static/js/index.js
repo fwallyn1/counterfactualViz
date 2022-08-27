@@ -4,10 +4,8 @@ thresh = threshold,
 desc = description;
 Promise.all(urls.map(url => d3.json(url))).then(run);
 function run(datasets) {
-    console.log(desc)
     var dataset = datasets[0]
     var data_info = {};
-    console.log(dataset)
     for (prob of Object.keys(dataset)){
         data_info[prob] = []
         for (let id_col of d3.range(0,dataset[prob].col.length)){

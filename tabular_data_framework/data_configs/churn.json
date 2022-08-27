@@ -1,0 +1,33 @@
+{   "name" : "churn" ,
+    "data_dir": "data/telco_new.csv",
+    "feature_size" : 46,
+    "class_size" : 2, 
+    "continous_cols": [
+        "tenure",
+        "MonthlyCharges",
+        "TotalCharges"
+    ],
+    "discret_cols": [
+        "gender",
+        "SeniorCitizen",
+        "Partner",
+        "Dependents",
+        "PhoneService",
+        "MultipleLines",
+        "InternetService",
+        "OnlineSecurity",
+        "OnlineBackup",
+        "DeviceProtection",
+        "TechSupport",
+        "StreamingTV",
+        "StreamingMovies",
+        "Contract",
+        "PaperlessBilling",
+        "PaymentMethod"
+
+    ]
+    
+}
+
+
+
