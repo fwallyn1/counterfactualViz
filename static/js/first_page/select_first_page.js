@@ -1,7 +1,7 @@
 function makeSelectFirstPage(dataset,data_info,id_indiv){
     /*  Construct the select object in order to choose the individual to visualize*/
     var prob = "0.0";
-    var indiv_range = d3.range([dataset[prob].X[id_indiv].length]);
+    var indiv_range = d3.range([dataset[prob].X[0].length]);
     var select = d3.select('#right-bar')
       .append('select')
           .attr('class','select')
