@@ -16,6 +16,15 @@ DATASET_PATH = 'data_churn_probs.json'
 DESCRIPTION_PATH = "description.json"
 
 def result_to_d3(result:Dict):
+    """
+    
+
+    Args:
+        result (Dict): _description_
+
+    Returns:
+        _type_: _description_
+    """
     data = {}
     data["col"] = result["X_original_space"].columns.tolist()
     data["X"] = result["X_original_space"].values.transpose().tolist()
@@ -26,25 +35,44 @@ def result_to_d3(result:Dict):
     data["proba_c"] = result["proba_c"].cpu().tolist()
     return data
 
-def prepare_new_data(dataset:Load_dataset_base,newdata:pd.DataFrame):
+def prepare_new_data(dataset:Load_dataset_base,newdata:pd.DataFrame) -> NumpyDataset:
+    """
+    Prepare the new data as a NumpyDataset with respect to the dataset Load_dataset_base.
+
+    Args:
+        dataset (Load_dataset_base)
+        newdata (pd.DataFrame)
     
-        def split_x_and_y(data):
-            X = data[data.columns[:-1]]
-            y = data[data.columns[-1]]
-            return X, y
-        X, y = split_x_and_y(newdata)
-        # preprocessing 
-        normalizer = dataset.normalizer
-        encoder = dataset.encoder
-        X_cont = normalizer.transform(X[dataset.continous_cols]) if dataset.continous_cols else np.array([[] for _ in range(len(X))])
-        
-        X_cat = encoder.transform(X[dataset.discret_cols]) if dataset.discret_cols else np.array([[] for _ in range(len(X))])
-        X = np.concatenate((X_cont, X_cat), axis=1)        
-        # Number of continious variables 
-        newdata_np = NumpyDataset(X, y.to_numpy())                
-        return newdata_np
+    Returns:
+        NumpyDataset: prepared dataset
+    """
+    
+    def split_x_and_y(data):
+        X = data[data.columns[:-1]]
+        y = data[data.columns[-1]]
+        return X, y
+    X, y = split_x_and_y(newdata)
+    # preprocessing 
+    normalizer = dataset.normalizer
+    encoder = dataset.encoder
+    X_cont = normalizer.transform(X[dataset.continous_cols]) if dataset.continous_cols else np.array([[] for _ in range(len(X))])
+    
+    X_cat = encoder.transform(X[dataset.discret_cols]) if dataset.discret_cols else np.array([[] for _ in range(len(X))])
+    X = np.concatenate((X_cont, X_cat), axis=1)        
+    # Number of continious variables 
+    newdata_np = NumpyDataset(X, y.to_numpy())                
+    return newdata_np
 
 def compute_counterfactuals(X):
+    """
+    Compute counterfactuals dictionnary for every probs
+
+    Args:
+        X (pd.DataFrame) : dataframe with individual infos
+
+    Returns:
+        Dict: counterfactuals dictionnary for every probs
+    """
     fix_seed()
     name = "churn"
     # Load the model parameters in a dict 
