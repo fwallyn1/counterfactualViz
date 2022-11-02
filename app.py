@@ -88,7 +88,7 @@ def compute_counterfactuals(X):
     loaders,cat_arrays,cont_shape = dataset.prepare_data()
     debug_enc = False 
     training = Train_CVAE(dataset_config_dict,model_config_dict,cat_arrays,cont_shape,loaders,dataset,ablation=None,condition="change_dec_only",cuda_name="cpu",shared_layers=True,debug_enc=debug_enc)
-    #training.train_and_valid_cvae(tensorboard=True)
+    training.train_and_valid_cvae(tensorboard=True)
     training.load_weights(dataset.name)
     X_np,y_np = prepare_new_data(dataset,X)[:]
     data_prob = {}
