@@ -17,13 +17,13 @@ DESCRIPTION_PATH = "description.json"
 
 def result_to_d3(result:Dict):
     """
-    
+    Right form to include in d3
 
     Args:
-        result (Dict): _description_
+        result (Dict): dictionnary of counterfactuals info 
 
     Returns:
-        _type_: _description_
+        Dict: Dictionnary OK for d3
     """
     data = {}
     data["col"] = result["X_original_space"].columns.tolist()
