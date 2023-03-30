@@ -41,9 +41,9 @@ The .json file should have the following format:
     "y_true_x": [1, 0, 0]
   },
 
-  ... 
+ 
 
-  "pn": { ... }
+  "pn": {  }
 
 }
 ```
@@ -57,7 +57,7 @@ Where:
 - proba_x: The predicted probabilities for the examples to be explained
 - proba_c: The predicted probabilities for the counterfactuals that are generated with a parameter value p_i
 - y_true_x: is the true predicted class for X
-## Input description of dataset in a JSON file 
+## Input description of the dataset used in a JSON file 
 
 The first page of the interface contains a description of the model, and data that are used. 
 
