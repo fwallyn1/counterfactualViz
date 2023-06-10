@@ -4,7 +4,7 @@ import numpy as np
 import json
 app = Flask(__name__)
 
-DATASET_PATH = 'data_churn_probs_immutable.json'
+DATASET_PATH = 'data_churn_probs.json'
 DESCRIPTION_PATH = "description.json"
 @app.route('/')
 def index():
@@ -38,9 +38,5 @@ def get_data():
     with open(DATASET_PATH, 'r') as f:
         fileData = json.load(f)
     return fileData
-
-
-if __name__ == '__main__':
-    app.run(host="localhost",debug=True,port=8000)
 
 
